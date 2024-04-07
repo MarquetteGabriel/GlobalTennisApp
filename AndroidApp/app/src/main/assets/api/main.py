@@ -4,6 +4,9 @@ import json
 from LiveScore.livedata import getLiveScore
 from Tournaments.calendarATP import getCalendarATP
 from SchedulesAndResults.schedule import getResults
+from Leaderboard.official_leaderboard import getLeaderboardATPOfficial
+from Leaderboard.race_leaderboard import getLeaderboardATPRace
+from Leaderboard.live_leaderboard import getLeaderboardATPLive
 import Tournaments.tournamentInfo as tournamentInfo
 
 app = Flask(__name__)
@@ -14,6 +17,22 @@ app = Flask(__name__)
 # PUT : Update resource
 # DELETE : Delete resource
 
+""" Leaderboard """
+
+@app.route("/api/atp/rankings/singles") # Maybe too long
+def singles_ranking_all():
+    atp_leaderboard = json.loads(getLeaderboardATPOfficial())
+    return jsonify(atp_leaderboard)
+
+@app.route("/api/atp/rankings/singles/race") # Maybe too long
+def singles_ranking_race():
+    atp_leaderboard_race = json.loads(getLeaderboardATPRace())
+    return jsonify(atp_leaderboard_race)
+
+@app.route("/api/atp/rankings/singles/live") # Maybe too long
+def singles_ranking_live():
+    atp_leaderboard_live = json.loads(getLeaderboardATPLive())
+    return jsonify(atp_leaderboard_live)
 
 """ Tournaments """
 
