@@ -28,63 +28,51 @@ def getTop10ATP(leaderboard_players, soup):
 
     for row in rows:
         
-        rank = row.find('td', class_='rank')
-        if rank:
-            rank = rank.get_text(strip=True)
-        else:
-            rank = ''
-        
-        name = row.find('span', class_=None)
-        if name:
-            name = name.get_text(strip=True)
-        else:
-            name = ''
-                
-        points = row.find_all('td', class_='points')
-        if points[0]:
-            live_points = points[0].get_text(strip=True)
-        else:
-            live_points = ''
-        if points[1]:
-            off_points = points[1].get_text(strip=True)
-        else:
-            off_points = ''
-
-        diff_points = live_points - off_points
-
-        best_points = row.find('td', class_='best')
-        if best_points:
-            best_points = best_points.get_text(strip=True)
-        else:
-            best_points = ''
-
-        tournament = row.find_all('span', class_= ['name', 'desc'])
-        if tournament:
-            current_tournament = tournament[0] + " - " + tournament[1]
-        else:
-            current_tournament = ''
-        
-        diff_elem = row.find('span', class_=['rank-up', 'rank-down'])
-        diff = diff_elem.get_text(strip=True) if diff_elem else ''
+        rank = row.find('td', class_='rank bold heavy tiny-cell').text.strip()
+        diff = row.find('span', class_=['rank-up', 'rank-down'])
         if diff:
-            diff = '+' + diff if int(diff) > 0 else diff
+            diff_rank = diff.text.strip()
+            diff_rank = '+' + diff_rank if int(diff_rank) > 0 else diff_rank
+        else:
+            diff_rank = ''
 
-        overview_elem = row.find('a', {'href': lambda x: x and '/overview' in x})
-        overview_url = overview_elem['href'] if overview_elem else ''
+        player = row.find('td', class_='player bold heavy large-cell')
+        name = player.find('span', class_='lastName').text.strip()
 
-        flag_elem = row.find('img', class_='flag')
-        flag_url = flag_elem['src'] if flag_elem else ''
+        live_points_diff = row.find('td', class_='points center bold extrabold small-cell').text.strip()
+        parts = live_points_diff.split(sep=None)
+        parts = list(filter(None, parts))
 
-        if name != '' and name != '-' and rank != '' and points != '':
+        live_points = int(parts[0].replace(',', ''))
+        if len(parts) > 1 and parts[1] != '-':
+            diff_points = int(parts[1])
+        else:
+            diff_points = 0
+
+
+        off_points = live_points - diff_points
+
+        max_points = int(row.find('span', class_='max-points').text.strip().replace(',', ''))
+        next_points = int(row.find('span', class_='next-points').text.strip().replace(',', ''))
+
+
+
+        current_tournament = row.find_all('span', class_=['name', 'desc'])[0].text.strip() + " - " + row.find_all('span', class_=['name', 'desc'])[1].text.strip()
+        overview_url = player.a['href']
+
+        flag_url = player.img['src']
+
+        if name != '':
             player = {
                 "rank" : rank,
                 "name" : name,
                 "live_points": live_points,
                 "official_points": off_points,
                 "diff_points": diff_points,
-                "max_points": best_points,
+                "next_points": next_points,
+                "max_points": max_points,
                 "current_tournament": current_tournament,
-                "diff": diff, 
+                "diff_rank": diff_rank, 
                 "overview_url": overview_url,
                 "flag_url": flag_url
             }
@@ -104,43 +92,70 @@ if response.status_code == 200:
     soup = BeautifulSoup(html, 'html.parser')
 
     leaderboard_players = []
-    getTop10ATP(leaderboard_players, soup)
+    #getTop10ATP(leaderboard_players, soup)
 
-    rows = soup.find_all('tr', class_='lower-row')
+    rows = soup.find_all('tr', {'class': ['', 'in-contention','lower-row']})
 
     for row in rows:
-        rank = row.find('td', class_='rank').get_text(strip=True)
-
-        name = row.find('span', class_='lastName')
-        if name:
-            name = name.get_text(strip=True)
-        else:
-            name = ''
-
-        points = row.find('td', class_='points').get_text(strip=True) if row.find('td', class_='points') else ''
-
-        diff_elem = row.find('span', class_=['rank-up', 'rank-down'])
-        diff = diff_elem.get_text(strip=True) if diff_elem else ''
+        rank = row.find('td', class_='rank bold heavy tiny-cell').text.strip()
+        diff = row.find('span', class_=['rank-up', 'rank-down'])
         if diff:
-            diff = '+' + diff if int(diff) > 0 else diff
+            diff_rank = diff.text.strip()
+            diff_rank = '+' + diff_rank if int(diff_rank) > 0 else diff_rank
+        else:
+            diff_rank = ''
 
-        overview_elem = row.find('a', {'href': lambda x: x and '/overview' in x})
-        overview_url = overview_elem['href'] if overview_elem else ''
+        player = row.find('td', class_='player bold heavy large-cell')
+        name = player.find('span', class_='lastName').text.strip()
 
-        flag_elem = row.find('img', class_='flag')
-        flag_url = flag_elem['src'] if flag_elem else ''
+        live_points_diff = row.find('td', class_='points center bold extrabold small-cell').text.strip()
+        parts = live_points_diff.split(sep=None)
+        parts = list(filter(None, parts))
+
+        live_points = int(parts[0].replace(',', ''))
+        if len(parts) > 1 and parts[1] != '-':
+            diff_points = int(parts[1])
+        else:
+            diff_points = 0
+
+
+        off_points = live_points - diff_points
+
+
+        max_points_diff = row.find('span', class_='max-points').text.strip()
+        if max_points_diff != '-':
+            max_points = int(max_points_diff.replace(',', ''))
+        else:
+            max_points = 0
+
+        next_points_diff = row.find('span', class_='next-points').text.strip()
+        if next_points_diff != '-':
+            next_points = int(next_points_diff.replace(',', ''))
+        else:
+            next_points = 0
+
+        current_tournament_diff = row.find_all('span', class_=['name', 'desc'])
+        if len(current_tournament_diff) > 1:
+            current_tournament = current_tournament_diff[0].text.strip() + " - " + current_tournament_diff[1].text.strip()
+        else:
+            current_tournament = ''
+        overview_url = player.a['href']
+
+        flag_url = player.img['src']
 
         if name!= '':
             leaderboard_player = {
-                    "rank" : rank,
-                    "name" : name,
-                    "points": points,
-                    # "max_points": max_points,
-                    # "diff_points": diff_points,
-                    # "current_tournament": current_tournament,
-                    "diff": diff, 
-                    "overview_url": overview_url,
-                    "flag_url": flag_url
+                "rank" : rank,
+                "name" : name,
+                "live_points": live_points,
+                "official_points": off_points,
+                "diff_points": diff_points,
+                "next_points": next_points,
+                "max_points": max_points,
+                "current_tournament": current_tournament,
+                "diff_rank": diff_rank, 
+                "overview_url": overview_url,
+                "flag_url": flag_url
             }
             leaderboard_players.append(leaderboard_player)
 
