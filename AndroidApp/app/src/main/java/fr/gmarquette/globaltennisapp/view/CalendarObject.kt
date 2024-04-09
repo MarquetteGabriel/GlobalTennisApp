@@ -33,7 +33,7 @@ object CalendarObject {
                         {
                                 itemList.add(CalendarItems.Header(getMonth(tournament.tournamentMonth)))
                         }
-                        itemList.add(CalendarItems.Item(tournament.name, tournament.formattedDate + " - " + tournament.location, tournament.surface + " - " + tournament.indoorOutdoor, "", tournament.type.logo))
+                        itemList.add(CalendarItems.Item(tournament.name, tournament.formattedDate + " - " + tournament.location, tournament.surface + " - " + tournament.indoorOutdoor, "-", tournament.type.logo))
                 }
 
                 return itemList

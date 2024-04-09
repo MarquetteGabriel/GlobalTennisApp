@@ -256,7 +256,7 @@ def home():
     return jsonify({"message": "Home"})
 
 def main():
-    app.run(port=2607, use_reloader=False)
+    app.run(host='127.0.0.1', port=2607)
 
 if __name__ == "__main__":
     main()

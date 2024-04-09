@@ -25,6 +25,7 @@ import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -67,18 +68,36 @@ class CalendarFragment : Fragment()
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                 val filteredList = ArrayList<Any>()
+                var lastItem = Any()
                 for (item in calendarTournamentList) {
+                    if (item is CalendarItems.Header) {
+                        if(lastItem.javaClass != item.javaClass)
+                        {
+                            filteredList.add(item)
+                            lastItem = item
+                        }
+                        else
+                        {
+                            filteredList.remove(lastItem)
+                            filteredList.add(item)
+                            lastItem = item
+                        }
+                    }
                     if (item is CalendarItems.Item) {
                         if (item.tournamentName.lowercase().contains(text.toString().lowercase())) {
                             filteredList.add(item)
+                            lastItem = item
                         }
-                    }
-                    if (item is CalendarItems.Header) {
-                        filteredList.add(item)
                     }
                 }
 
+                if (filteredList.isNotEmpty() && filteredList.last() is CalendarItems.Header)
+                {
+                    filteredList.removeAt(filteredList.size - 1)
+                }
+
                 adapterList.updateList(filteredList)
+                binding.calendarTournamentRecyclerView.scrollToPosition(0)
             }
 
             override fun afterTextChanged(s: android.text.Editable?) {
@@ -91,6 +110,7 @@ class CalendarFragment : Fragment()
     private fun getCalendarATP(){
         mainScope.launch {
             try {
+                delay(7000)
                 CoroutineScope(Dispatchers.IO).launch {
                     val response = ApiObject.calendarApi.getCalendarATP()
                     withContext(Dispatchers.Main) {
@@ -99,7 +119,7 @@ class CalendarFragment : Fragment()
                             // Mettez à jour l'interface utilisateur avec les données récupérées
                             for (tournament in tournaments) {
                                 val tempTournament = Tournament(tournament)
-                                tournamentViewModel.addTournament(tempTournament)
+                                tournamentViewModel.addOrUpdateTournament(tempTournament)
                             }
                         } else {
                             // Gérez les erreurs

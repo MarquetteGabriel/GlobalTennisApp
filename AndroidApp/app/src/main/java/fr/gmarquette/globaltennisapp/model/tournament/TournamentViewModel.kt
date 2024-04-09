@@ -33,6 +33,23 @@ class TournamentViewModel(application: Application): AndroidViewModel(applicatio
         }
     }
 
+    fun updateTournament(tournament: Tournament) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateTournament(tournament)
+        }
+    }
+
+    fun addOrUpdateTournament(tournament: Tournament) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val tournamentExist = getTournament(tournament.name).value
+            if(tournamentExist == null) {
+                addTournament(tournament)
+            } else {
+                updateTournament(tournament)
+            }
+        }
+    }
+
     fun getTournaments(): LiveData<List<Tournament>> {
         return getTournaments
     }

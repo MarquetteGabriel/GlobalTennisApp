@@ -13,12 +13,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface TournamentDAO
 {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTournament(tournament: Tournament)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateTournament(tournament: Tournament)
 
     @Query("SELECT * FROM tournaments")
     fun getTournaments(): LiveData<List<Tournament>>
