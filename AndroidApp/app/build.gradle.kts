@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
+    id("com.chaquo.python")
 }
 
 android {
@@ -16,6 +17,7 @@ android {
         versionName = "0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
     }
 
     buildTypes {
@@ -40,6 +42,25 @@ android {
     }
 }
 
+chaquopy{
+    defaultConfig {
+        version = "3.12"
+        buildPython("C:\\Windows\\py.exe")
+
+        pip {
+            install("-r", "${project.rootDir}/app/src/main/assets/api/requirements.txt")
+        }
+    }
+    productFlavors {
+    }
+    sourceSets {
+        getByName("main") {
+            srcDir("src/main/assets/api")
+        }
+
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -55,4 +76,11 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.fragment)
+
+    // Worker
+    implementation (libs.androidx.work.runtime.ktx)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }
