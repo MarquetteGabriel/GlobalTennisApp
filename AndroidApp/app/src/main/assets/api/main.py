@@ -251,12 +251,12 @@ def atp_results(date):
 
 """ Main """
 
-@app.route("/api/")
+@app.route("/api/atp/")
 def home():
     return jsonify({"message": "Home"})
 
 def main():
-    app.run(debug=True, port=2607, use_reloader=False)
+    app.run(port=2607, use_reloader=False)
 
 if __name__ == "__main__":
     main()

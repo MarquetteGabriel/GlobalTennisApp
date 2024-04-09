@@ -37,14 +37,13 @@ class ATPActivity : AppCompatActivity() {
             insets
         }
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navComponentATP) as NavHostFragment
-        navController = navHostFragment.navController
-
         // Start of Api Worker
         val apiWorkRequest = OneTimeWorkRequestBuilder<ApiService>()
             .build()
         WorkManager.getInstance(this).enqueue(apiWorkRequest)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navComponentATP) as NavHostFragment
+        navController = navHostFragment.navController
     }
 
     override fun onDestroy() {
@@ -53,4 +52,5 @@ class ATPActivity : AppCompatActivity() {
         workManager.cancelUniqueWork(ApiService.WORK_NAME)
 
     }
+
 }

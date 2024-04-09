@@ -1,3 +1,11 @@
+/*
+ *
+ * @brief Copyright (c) 2024 Gabriel Marquette
+ *
+ * Copyright (c) 2024 Gabriel Marquette. All rights reserved.
+ *
+ */
+
 package fr.gmarquette.globaltennisapp.api
 
 import android.content.Context
@@ -19,6 +27,14 @@ class ApiService (context: Context, workerParams: WorkerParameters) : Worker(con
         apiModule = Python.getInstance().getModule("main")
         apiModule.callAttr("main")
         return Result.success()
+    }
+
+    override fun onStopped() {
+        super.onStopped()
+        val runtime = Runtime.getRuntime()
+        val command = "pkill -f 'main.py 2607'"
+        val process = runtime.exec(command)
+        process.waitFor()
     }
 
     companion object {

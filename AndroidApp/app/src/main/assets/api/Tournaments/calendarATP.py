@@ -1,4 +1,5 @@
-import requests,json
+import json
+import requests
 
 url = "https://www.atptour.com/en/-/tournaments/calendar/tour"
 
@@ -19,13 +20,13 @@ def getCalendarATP():
         for tournament_date in data["TournamentDates"]:
             for tournament in tournament_date["Tournaments"]:
                 tournament_data = {
-                    #"Id": tournament["Id"],
+                    "Id": tournament["Id"],
                     "Name": tournament["Name"],
                     "FormattedDate": tournament["FormattedDate"],
-                    #"Location": tournament["Location"],
-                    #"Type": tournament["Type"],
-                    #"OverviewUrl": tournament["TournamentOverviewUrl"],
-                    #"url_tournament": tournament['TicketsUrl'],
+                    "Location": tournament["Location"],
+                    "Type": tournament["Type"],
+                    "OverviewUrl": tournament["TournamentOverviewUrl"],
+                    "url_tournament": tournament['TicketsUrl'],
                 }
                 tournamentsATP.append(tournament_data)
 

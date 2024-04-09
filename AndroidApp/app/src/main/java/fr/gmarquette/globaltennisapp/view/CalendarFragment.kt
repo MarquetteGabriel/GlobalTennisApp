@@ -15,15 +15,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.gmarquette.globaltennisapp.R
+import fr.gmarquette.globaltennisapp.api.ApiObject
 import fr.gmarquette.globaltennisapp.databinding.FragmentCalendarBinding
+import fr.gmarquette.globaltennisapp.model.tournament.Tournament
+import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CalendarFragment : Fragment()
 {
 
     private lateinit var binding: FragmentCalendarBinding
+    private val mainScope = CoroutineScope(Dispatchers.Main)
+    private lateinit var tournamentViewModel: TournamentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,9 +42,19 @@ class CalendarFragment : Fragment()
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar, container, false)
         val view = binding.root
+
+        tournamentViewModel = ViewModelProvider(this)[TournamentViewModel::class.java]
+        val adapterList = CalendarAdapter {
+
+        }
+
+        getCalendarATP()
         var calendarTournamentList: List<Any> = listOf()
 
-        val adapterList = CalendarAdapter {}
+        tournamentViewModel.getTournaments().observe(viewLifecycleOwner) {
+            calendarTournamentList = CalendarObject.getItems(tournamentViewModel)
+            adapterList.updateList(calendarTournamentList)
+        }
 
         binding.calendarTournamentRecyclerView.apply {
             layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
@@ -66,5 +86,31 @@ class CalendarFragment : Fragment()
         })
 
         return view
+    }
+
+    private fun getCalendarATP(){
+        mainScope.launch {
+            try {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response = ApiObject.calendarApi.getCalendarATP()
+                    withContext(Dispatchers.Main) {
+                        val tournaments = response.body()
+                        if (tournaments != null) {
+                            // Mettez à jour l'interface utilisateur avec les données récupérées
+                            for (tournament in tournaments) {
+                                val tempTournament = Tournament(tournament)
+                                tournamentViewModel.addTournament(tempTournament)
+                            }
+                        } else {
+                            // Gérez les erreurs
+                        }
+                    }
+
+                }
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }
