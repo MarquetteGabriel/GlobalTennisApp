@@ -76,7 +76,11 @@
                 android:visibility="visible"/>
 
             <include layout="@layout/tournament_page_recyclerview"
-                android:id="@+id/seeds_tournament"
+                android:id="@+id/recyclerViews_tournament"
+                android:visibility="gone"/>
+
+            <include layout="@layout/tournament_page_draw"
+                android:id="@+id/draw_tournament"
                 android:visibility="gone"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

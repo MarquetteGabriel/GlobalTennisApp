@@ -8,23 +8,19 @@
 
 package fr.gmarquette.globaltennisapp.api.dataclasses
 
-
-data class TournamentResponse(
-    val tournamentInfo: TournamentInfo,
-    val pastWinners: List<PastWinners>,
-    val seeds: List<Seeds>,
-    val prizeAndPoints: List<PrizeAndPoints>
-)
-{
-    data class TournamentInfo(
+ data class TournamentInfo(
         val DoubleDrawSize: Int,
         val IndoorOutdoor: String,
         val Location: String,
         val Name: String,
-        val SinglesDrawSize: Int,
+        val SingleDrawSize: Int,
         val Surface: String,
+        val PastChampions: List<PastWinners>,
+        val TopSeeds: List<Seeds>,
+        val PrizeAndPoints: List<PrizeAndPoint>
 
     )
+ {
 
     data class PastWinners(
         val FirstName: String,
@@ -37,7 +33,7 @@ data class TournamentResponse(
         val Seed: Int
     )
 
-    data class PrizeAndPoints(
+    data class PrizeAndPoint(
         val Points: Int,
         val PrizeMoney: Int,
         val Round: String

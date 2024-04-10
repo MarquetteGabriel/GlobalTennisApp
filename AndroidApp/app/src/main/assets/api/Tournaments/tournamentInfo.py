@@ -1,5 +1,9 @@
-import requests,json, csv, os
+import csv
+import json
+import os
+import requests
 from datetime import datetime
+
 
 def getATPTournamentInfo(tournament_id):
 
@@ -67,7 +71,10 @@ def getATPTournamentInfo(tournament_id):
                 "Year": champion['Year'],
             }
             pastChampions.append(champion_info)
-        tournament_data.append(pastChampions)
+        champions_dict = {
+        "PastChampions": pastChampions
+        }
+        tournament_data[0].update(champions_dict)
 
     response_topseeds = requests.request("GET", url_topseeds, data=payload_topseeds, headers=headers_topseeds)
     if(response_topseeds.status_code == 200) :
@@ -81,7 +88,10 @@ def getATPTournamentInfo(tournament_id):
                 "PlayerName": seed['FullName'],
             }
             topseeds.append(seed_info)
-        tournament_data.append(topseeds)
+        seeds_dict = {
+        "TopSeeds": topseeds
+        }
+        tournament_data[0].update(seeds_dict)
 
     response_prize = requests.request("GET", url_prize, data=payload_prize, headers=headers_prize)
     if(response_prize.status_code == 200) :
@@ -96,7 +106,10 @@ def getATPTournamentInfo(tournament_id):
                 "PrizeMoney": prize['Prize'],
             }
             prizeAndPoints.append(points)
-        tournament_data.append(prizeAndPoints)
+        prize_and_points_dict = {
+        "PrizeAndPoints": prizeAndPoints
+        }
+        tournament_data[0].update(prize_and_points_dict)
 
     json_tournament_info = json.dumps(tournament_data, indent=4)
     return json_tournament_info

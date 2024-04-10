@@ -33,12 +33,18 @@ object CalendarObject {
                         {
                                 itemList.add(CalendarItems.Header(getMonth(tournament.tournamentMonth)))
                         }
+
+                        val pastChamps = if(tournament.listLastWinners.isNotEmpty()) {
+                                tournament.listLastWinners.first().name
+                        } else {
+                                "-"
+                        }
                         itemList.add(
                                 CalendarItems.Item(
                                         tournament.name,
                                         tournament.formattedDate + " - " + tournament.location,
                                         tournament.surface + " - " + tournament.indoorOutdoor,
-                                        "-",
+                                        pastChamps,
                                         tournament.type.logo
                                 )
                         )

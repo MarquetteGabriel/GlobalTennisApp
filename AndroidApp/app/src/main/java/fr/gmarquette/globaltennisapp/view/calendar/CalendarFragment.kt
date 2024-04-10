@@ -47,10 +47,15 @@ class CalendarFragment : Fragment()
 
         tournamentViewModel = ViewModelProvider(this)[TournamentViewModel::class.java]
         val adapterList = CalendarAdapter {
-            tournamentViewModel.getTournament(it.tournamentName).observe(viewLifecycleOwner
+            tournamentViewModel.getTournament(it.tournamentName).observe(
+                viewLifecycleOwner
             ) { tournament ->
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP))
-                    .navigate(CalendarFragmentDirections.actionCalendarFragmentToTournamentPageFragment(tournament))
+                    .navigate(
+                        CalendarFragmentDirections.actionCalendarFragmentToTournamentPageFragment(
+                            tournament
+                        )
+                    )
             }
         }
 
@@ -67,7 +72,7 @@ class CalendarFragment : Fragment()
             adapter = adapterList
         }
 
-        binding.calendarSearchView.addTextChangedListener ( object : TextWatcher {
+        binding.calendarSearchView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -76,7 +81,7 @@ class CalendarFragment : Fragment()
                 var lastItem = Any()
                 for (item in calendarTournamentList) {
                     if (item is CalendarItems.Header) {
-                        lastItem = if(lastItem.javaClass != item.javaClass) {
+                        lastItem = if (lastItem.javaClass != item.javaClass) {
                             filteredList.add(item)
                             item
                         } else {
@@ -93,8 +98,7 @@ class CalendarFragment : Fragment()
                     }
                 }
 
-                if (filteredList.isNotEmpty() && filteredList.last() is CalendarItems.Header)
-                {
+                if (filteredList.isNotEmpty() && filteredList.last() is CalendarItems.Header) {
                     filteredList.removeAt(filteredList.size - 1)
                 }
 
@@ -121,6 +125,18 @@ class CalendarFragment : Fragment()
                             for (tournament in tournaments) {
                                 val tempTournament = Tournament(tournament)
                                 tournamentViewModel.addOrUpdateTournament(tempTournament)
+
+                                /*
+                                    i.name = tournament.Name
+                                    i.formattedDate = tournament.FormattedDate
+                                    i.location = tournament.Location
+                                    i.overviewUrl = tournament.OverviewUrl
+                                    i.website = tournament.url_tournament
+                                    i.type = convertTypeToCategory(tournament.Type, tournament.Name)
+                                    tournamentViewModel.updateTournament(i)
+                                    exist = true
+                                    break
+                                 */
                             }
                         }
                     }
@@ -132,4 +148,25 @@ class CalendarFragment : Fragment()
             }
         }
     }
+
+/*
+    private fun convertTypeToCategory(type: String, name: String): TournamentType
+    {
+        return if (type.contains("250")) TournamentType.ATP_250
+        else if (type.contains("500")) TournamentType.ATP_500
+        else if (type.contains("1000")) TournamentType.ATP_1000
+        else if (type.contains("GS")) {
+            if(name.contains("Australian")) TournamentType.AUSTRALIAN_OPEN
+            else if(name.contains("Roland Garros")) TournamentType.ROLLAND_GARROS
+            else if(name.contains("Wimbledon")) TournamentType.WIMBLEDON
+            else if(name.contains("US Open")) TournamentType.US_OPEN
+            else TournamentType.ATP_GRAND_CHELEM }
+        else if (type.contains("WC")) TournamentType.ATP_FINALS
+        else if (type.contains("XXI")) TournamentType.ATP_FINALS_NEXT_GEN
+        else if (type.contains("DCR")) TournamentType.DAVIS_CUP
+        else if (type.contains("UC")) TournamentType.UNITED_CUP
+        else if (type.contains("LVR")) TournamentType.LAVER_CUP
+        else TournamentType.ATP_GRAND_CHELEM
+    }
+ */
 }

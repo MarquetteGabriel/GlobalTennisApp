@@ -8,7 +8,7 @@
 
 package fr.gmarquette.globaltennisapp.api.interfaces
 
-import fr.gmarquette.globaltennisapp.api.dataclasses.TournamentResponse
+import fr.gmarquette.globaltennisapp.api.dataclasses.TournamentInfo
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,6 +17,6 @@ interface ApiInterfaceTournamentPage
 {
 
     @GET("atp/{tournamentId}")
-    suspend fun getTournamentInfo(@Path("tournamentId") tournamendId: String): Response<TournamentResponse>
+    suspend fun getTournamentInfo(@Path("tournamentId") tournamentId: String): Response<List<TournamentInfo>>
 
 }
