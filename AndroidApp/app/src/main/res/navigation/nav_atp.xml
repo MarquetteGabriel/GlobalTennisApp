@@ -6,6 +6,29 @@
 
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="fr.gmarquette.globaltennisapp.view.CalendarFragment"
-        android:label="CalendarFragment" />
+        android:name="fr.gmarquette.globaltennisapp.view.calendar.CalendarFragment"
+        android:label="CalendarFragment" >
+        <action
+            android:id="@+id/action_calendarFragment_to_tournamentPageFragment"
+            app:destination="@id/tournamentPageFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/tournamentPageFragment"
+        android:name="fr.gmarquette.globaltennisapp.view.tournamentpage.TournamentPageFragment"
+        android:label="TournamentPageFragment" >
+        <action
+            android:id="@+id/action_tournamentPageFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <argument
+            android:name="tournament"
+            app:argType="fr.gmarquette.globaltennisapp.model.tournament.Tournament" />
+    </fragment>
 </navigation>

@@ -9,14 +9,17 @@
 package fr.gmarquette.globaltennisapp.model.tournament
 
 import android.graphics.Bitmap
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import fr.gmarquette.globaltennisapp.api.dataclasses.CalendarATP
 import fr.gmarquette.globaltennisapp.model.enums.TournamentType
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
+@Parcelize
 @Entity(tableName = "tournaments")
 data class Tournament (
 
@@ -24,26 +27,32 @@ data class Tournament (
     var id: Int,
     var name: String,
     var location: String,
-    var surface: String = "",
-    var indoorOutdoor: String = "",
-    var singleDrawSize: Int = 0,
     var formattedDate: String,
     var type: TournamentType,
     var overviewUrl: String,
     var website: String,
-    var picture: Bitmap? = null,
-)
+
+) : Parcelable
 {
 
     var tournamentMonth: Int = 0
     var date: TournamentDate = TournamentDate()
+    var surface: String = ""
+    var indoorOutdoor: String = ""
+    var singleDrawSize: Int = 0
+    var picture: Bitmap? = null
+    var prizeMoney: Int = 0
+    var listLastWinners: MutableList<LastWinners> = mutableListOf()
+    var listSeeds: MutableList<Seeds> = mutableListOf()
+    var listPrize: MutableList<Prize> = mutableListOf()
+    var listPoints: MutableList<Points> = mutableListOf()
 
     data class LastWinners(val name: String, val year: Int)
     data class Seeds(val name: String, val seed: Int)
     data class Prize(val round: String, val prize: Int)
     data class Points(val round: String, val points: Int)
 
-    constructor(calendar: CalendarATP): this(calendar.Id.toInt(), calendar.Name, calendar.Location, "", "", 0, calendar.FormattedDate, convertTypeToCategory(calendar.Type, calendar.Name), calendar.OverviewUrl, calendar.url_tournament, null)
+    constructor(calendar: CalendarATP): this(calendar.Id.toInt(), calendar.Name, calendar.Location, calendar.FormattedDate, convertTypeToCategory(calendar.Type, calendar.Name), calendar.OverviewUrl, calendar.url_tournament)
     {
         this.date = convertFormattedDate(calendar.FormattedDate)
         this.tournamentMonth = setTournamentMonth(this.date.startMonth.lowercase().replaceFirstChar(Char::uppercase), this.date.endMonth.lowercase().replaceFirstChar(Char::uppercase))

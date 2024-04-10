@@ -6,7 +6,7 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.view
+package fr.gmarquette.globaltennisapp.view.calendar
 
 import android.os.Bundle
 import android.text.TextWatcher
@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.gmarquette.globaltennisapp.R
@@ -46,7 +47,11 @@ class CalendarFragment : Fragment()
 
         tournamentViewModel = ViewModelProvider(this)[TournamentViewModel::class.java]
         val adapterList = CalendarAdapter {
-
+            tournamentViewModel.getTournament(it.tournamentName).observe(viewLifecycleOwner
+            ) { tournament ->
+                Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP))
+                    .navigate(CalendarFragmentDirections.actionCalendarFragmentToTournamentPageFragment(tournament))
+            }
         }
 
         getCalendarATP()
@@ -71,16 +76,13 @@ class CalendarFragment : Fragment()
                 var lastItem = Any()
                 for (item in calendarTournamentList) {
                     if (item is CalendarItems.Header) {
-                        if(lastItem.javaClass != item.javaClass)
-                        {
+                        lastItem = if(lastItem.javaClass != item.javaClass) {
                             filteredList.add(item)
-                            lastItem = item
-                        }
-                        else
-                        {
+                            item
+                        } else {
                             filteredList.remove(lastItem)
                             filteredList.add(item)
-                            lastItem = item
+                            item
                         }
                     }
                     if (item is CalendarItems.Item) {
@@ -116,13 +118,10 @@ class CalendarFragment : Fragment()
                     withContext(Dispatchers.Main) {
                         val tournaments = response.body()
                         if (tournaments != null) {
-                            // Mettez à jour l'interface utilisateur avec les données récupérées
                             for (tournament in tournaments) {
                                 val tempTournament = Tournament(tournament)
                                 tournamentViewModel.addOrUpdateTournament(tempTournament)
                             }
-                        } else {
-                            // Gérez les erreurs
                         }
                     }
 

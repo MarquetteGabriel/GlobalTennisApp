@@ -6,7 +6,7 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.model
+package fr.gmarquette.globaltennisapp.model.tournament
 
 import android.content.Context
 import android.graphics.Bitmap

@@ -6,15 +6,16 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.view
+package fr.gmarquette.globaltennisapp.view.calendar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+
 import fr.gmarquette.globaltennisapp.databinding.CalendarHeaderBinding
 import fr.gmarquette.globaltennisapp.databinding.CalendarItemBinding
-import fr.gmarquette.globaltennisapp.view.CalendarObject.TYPE_HEADER
-import fr.gmarquette.globaltennisapp.view.CalendarObject.TYPE_ITEM
+import fr.gmarquette.globaltennisapp.view.calendar.CalendarObject.TYPE_HEADER
+import fr.gmarquette.globaltennisapp.view.calendar.CalendarObject.TYPE_ITEM
 
 class CalendarAdapter(private val clickListener: (CalendarItems.Item) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

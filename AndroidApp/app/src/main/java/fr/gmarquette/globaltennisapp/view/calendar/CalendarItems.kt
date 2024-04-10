@@ -6,7 +6,7 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.view
+package fr.gmarquette.globaltennisapp.view.calendar
 
 sealed class CalendarItems
 {

@@ -6,7 +6,7 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.view
+package fr.gmarquette.globaltennisapp.view.calendar
 
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
 
@@ -33,7 +33,15 @@ object CalendarObject {
                         {
                                 itemList.add(CalendarItems.Header(getMonth(tournament.tournamentMonth)))
                         }
-                        itemList.add(CalendarItems.Item(tournament.name, tournament.formattedDate + " - " + tournament.location, tournament.surface + " - " + tournament.indoorOutdoor, "-", tournament.type.logo))
+                        itemList.add(
+                                CalendarItems.Item(
+                                        tournament.name,
+                                        tournament.formattedDate + " - " + tournament.location,
+                                        tournament.surface + " - " + tournament.indoorOutdoor,
+                                        "-",
+                                        tournament.type.logo
+                                )
+                        )
                 }
 
                 return itemList

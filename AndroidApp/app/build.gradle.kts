@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
-    id("com.chaquo.python")
+    alias(libs.plugins.navigationSafeArgs)
+    alias(libs.plugins.kotlinParcelize)
+    alias(libs.plugins.chaqopy)
 }
 
 android {
@@ -76,6 +78,7 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.navigation.ui.ktx)
 
     // Worker
     implementation (libs.androidx.work.runtime.ktx)

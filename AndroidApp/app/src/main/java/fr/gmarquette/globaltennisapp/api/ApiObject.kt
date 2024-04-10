@@ -10,6 +10,7 @@ package fr.gmarquette.globaltennisapp.api
 
 import fr.gmarquette.globaltennisapp.api.interfaces.ApiInterface
 import fr.gmarquette.globaltennisapp.api.interfaces.ApiInterfaceCalendar
+import fr.gmarquette.globaltennisapp.api.interfaces.ApiInterfaceTournamentPage
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -24,4 +25,5 @@ object ApiObject
 
     val homeApi: ApiInterface = retrofit.create(ApiInterface::class.java)
     val calendarApi: ApiInterfaceCalendar = retrofit.create(ApiInterfaceCalendar::class.java)
+    val tournamentPageApi: ApiInterfaceTournamentPage = retrofit.create(ApiInterfaceTournamentPage::class.java)
 }
