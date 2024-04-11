@@ -41,7 +41,7 @@ class TournamentViewModel(application: Application): AndroidViewModel(applicatio
 
     fun addOrUpdateTournament(tournament: Tournament) {
         viewModelScope.launch(Dispatchers.IO) {
-            val tournamentExist = getTournament(tournament.name).value
+            val tournamentExist = getTournamentByName(tournament.name).value
             if(tournamentExist == null) {
                 addTournament(tournament)
             } else {
@@ -54,7 +54,7 @@ class TournamentViewModel(application: Application): AndroidViewModel(applicatio
         return getTournaments
     }
 
-    fun getTournament(name: String): LiveData<Tournament> {
-        return repository.getTournament(name)
+    fun getTournamentByName(name: String): LiveData<Tournament> {
+        return repository.getTournamentByName(name)
     }
 }

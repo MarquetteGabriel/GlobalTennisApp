@@ -53,7 +53,7 @@ def getATPTournamentInfo(tournament_id):
             "DoubleDrawSize": data['DoublesDrawSize'],
             "Surface": data['Surface'],
             "Location": data['Location'],
-            "IndoorOutdoor": data['InOutdoor'],
+            "IndoorOutdoor": IO_def(data['InOutdoor']),
         }
 
         tournament_data.append(tournament_overview)
@@ -213,3 +213,10 @@ def getMatchByYearByTournamentForATPDoubles(tournament_name, year):
                 break
 
     return json.dumps(all_data, indent=4)
+
+
+def IO_def(io):
+    if io == "O":
+        return "Outdoor"
+    else :
+        return "Indoor"

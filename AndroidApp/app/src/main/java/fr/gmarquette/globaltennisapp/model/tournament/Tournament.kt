@@ -11,6 +11,7 @@ package fr.gmarquette.globaltennisapp.model.tournament
 import android.graphics.Bitmap
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import fr.gmarquette.globaltennisapp.api.dataclasses.CalendarATP
 import fr.gmarquette.globaltennisapp.model.enums.TournamentType
@@ -36,6 +37,7 @@ data class Tournament (
 {
 
     var tournamentMonth: Int = 0
+    @Ignore
     var date: TournamentDate = TournamentDate()
     var surface: String = ""
     var indoorOutdoor: String = ""
@@ -44,7 +46,9 @@ data class Tournament (
     var prizeMoney: Int = 0
     var listLastWinners: MutableList<LastWinners> = mutableListOf()
     var listSeeds: MutableList<Seeds> = mutableListOf()
+    @Ignore
     var listPrize: MutableList<Prize> = mutableListOf()
+    @Ignore
     var listPoints: MutableList<Points> = mutableListOf()
 
     data class LastWinners(val name: String, val year: Int)

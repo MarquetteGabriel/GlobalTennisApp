@@ -35,9 +35,9 @@ object CalendarObject {
                         }
 
                         val pastChamps = if(tournament.listLastWinners.isNotEmpty()) {
-                                tournament.listLastWinners.first().name
+                                "🏆 " + tournament.listLastWinners.first().year.toString() + " - " + tournament.listLastWinners.first().name
                         } else {
-                                "-"
+                                ""
                         }
                         itemList.add(
                                 CalendarItems.Item(

@@ -22,7 +22,7 @@ class TournamentRepository(private val tournamentDAO: TournamentDAO)
         tournamentDAO.updateTournament(tournament)
     }
 
-    fun getTournament(name: String): LiveData<Tournament> {
-        return tournamentDAO.getTournament(name)
+    fun getTournamentByName(name: String): LiveData<Tournament> {
+        return tournamentDAO.getTournamentByName(name)
     }
 }

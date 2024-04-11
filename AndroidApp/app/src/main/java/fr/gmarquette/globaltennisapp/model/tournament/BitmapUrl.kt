@@ -21,7 +21,7 @@ import java.net.URL
 class BitmapUrl {
 
     private val url = "https://www.atptour.com"
-    suspend fun getBitmapFromUrl(overviewUrl: String, context: Context): Bitmap
+    suspend fun getBitmapFromUrl(overviewUrl: String, context: Context): Bitmap?
     {
         val urlOverview = url + overviewUrl
         val html = URL(urlOverview).readText()
@@ -34,12 +34,16 @@ class BitmapUrl {
     }
 
 
-    private suspend fun getBitmap(imageUrl: String, context: Context): Bitmap {
-        val loading = ImageLoader(context)
-        val request = ImageRequest.Builder(context)
-            .data(imageUrl)
-            .build()
-        val result = (loading.execute(request) as SuccessResult).drawable
-        return (result as BitmapDrawable).bitmap
+    private suspend fun getBitmap(imageUrl: String, context: Context): Bitmap? {
+        return try {
+            val loading = ImageLoader(context)
+            val request = ImageRequest.Builder(context)
+                .data(imageUrl)
+                .build()
+            val result = (loading.execute(request) as SuccessResult).drawable
+            (result as BitmapDrawable).bitmap
+        } catch (e: Exception) {
+            null
+        }
     }
 }

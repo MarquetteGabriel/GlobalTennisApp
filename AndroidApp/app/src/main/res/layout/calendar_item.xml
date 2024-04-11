@@ -74,6 +74,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailsTournament" />
 
+            <TextView
+                android:id="@+id/lastWinnerTournament"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@{tournament.lastWinner}"
+
+                android:textColor="@color/default_text"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/logoTournament"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/surfaceTournament" />
+
             <ImageView
                 android:id="@+id/logoTournament"
                 android:layout_width="70dp"

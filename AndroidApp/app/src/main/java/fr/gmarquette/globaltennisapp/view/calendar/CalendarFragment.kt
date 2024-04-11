@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.gmarquette.globaltennisapp.R
 import fr.gmarquette.globaltennisapp.api.ApiObject
 import fr.gmarquette.globaltennisapp.databinding.FragmentCalendarBinding
+import fr.gmarquette.globaltennisapp.model.enums.TournamentType
 import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -47,7 +49,7 @@ class CalendarFragment : Fragment()
 
         tournamentViewModel = ViewModelProvider(this)[TournamentViewModel::class.java]
         val adapterList = CalendarAdapter {
-            tournamentViewModel.getTournament(it.tournamentName).observe(
+            tournamentViewModel.getTournamentByName(it.tournamentName).observe(
                 viewLifecycleOwner
             ) { tournament ->
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP))
@@ -59,13 +61,17 @@ class CalendarFragment : Fragment()
             }
         }
 
-        getCalendarATP()
+
         var calendarTournamentList: List<Any> = listOf()
 
-        tournamentViewModel.getTournaments().observe(viewLifecycleOwner) {
-            calendarTournamentList = CalendarObject.getItems(tournamentViewModel)
-            adapterList.updateList(calendarTournamentList)
-        }
+        tournamentViewModel.getTournaments().observe(viewLifecycleOwner, object : Observer<List<Tournament>> {
+            override fun onChanged(value: List<Tournament>) {
+                getCalendarATP(value)
+                calendarTournamentList = CalendarObject.getItems(tournamentViewModel)
+                adapterList.updateList(calendarTournamentList)
+                tournamentViewModel.getTournaments().removeObserver(this)
+            }
+        })
 
         binding.calendarTournamentRecyclerView.apply {
             layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
@@ -113,7 +119,7 @@ class CalendarFragment : Fragment()
         return view
     }
 
-    private fun getCalendarATP(){
+    private fun getCalendarATP(it: List<Tournament>){
         mainScope.launch {
             try {
                 delay(7000)
@@ -123,10 +129,9 @@ class CalendarFragment : Fragment()
                         val tournaments = response.body()
                         if (tournaments != null) {
                             for (tournament in tournaments) {
-                                val tempTournament = Tournament(tournament)
-                                tournamentViewModel.addOrUpdateTournament(tempTournament)
-
-                                /*
+                                var exist = false
+                                for (i in it)
+                                {
                                     i.name = tournament.Name
                                     i.formattedDate = tournament.FormattedDate
                                     i.location = tournament.Location
@@ -136,7 +141,12 @@ class CalendarFragment : Fragment()
                                     tournamentViewModel.updateTournament(i)
                                     exist = true
                                     break
-                                 */
+                                }
+                                if(!exist)
+                                {
+                                    val tempTournament = Tournament(tournament)
+                                    tournamentViewModel.addTournament(tempTournament)
+                                }
                             }
                         }
                     }
@@ -149,7 +159,7 @@ class CalendarFragment : Fragment()
         }
     }
 
-/*
+
     private fun convertTypeToCategory(type: String, name: String): TournamentType
     {
         return if (type.contains("250")) TournamentType.ATP_250
@@ -168,5 +178,4 @@ class CalendarFragment : Fragment()
         else if (type.contains("LVR")) TournamentType.LAVER_CUP
         else TournamentType.ATP_GRAND_CHELEM
     }
- */
 }

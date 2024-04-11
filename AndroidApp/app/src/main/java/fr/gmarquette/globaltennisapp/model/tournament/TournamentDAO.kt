@@ -24,9 +24,10 @@ interface TournamentDAO
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateTournament(tournament: Tournament)
 
+
     @Query("SELECT * FROM tournaments")
     fun getTournaments(): LiveData<List<Tournament>>
 
     @Query("SELECT * FROM tournaments WHERE name = :name")
-    fun getTournament(name: String): LiveData<Tournament>
+    fun getTournamentByName(name: String): LiveData<Tournament>
 }

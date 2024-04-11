@@ -114,21 +114,29 @@ class TournamentPageFragment: Fragment()
                             tournament.singleDrawSize = response[0].SingleDrawSize
                             tournament.surface = response[0].Surface
 
+                            val tempListLastWinners = mutableListOf<Tournament.LastWinners>()
+                            val tempListSeeds = mutableListOf<Tournament.Seeds>()
+                            val tempListPrize = mutableListOf<Tournament.Prize>()
+                            val tempListPoints = mutableListOf<Tournament.Points>()
+
                             response[0].PastChampions.forEach {
-                                tournament.listLastWinners.add(
-                                    Tournament.LastWinners(it.FirstName + " " + it.LastName, it.Year))
+                                tempListLastWinners.add(Tournament.LastWinners(it.FirstName + " " + it.LastName, it.Year))
                             }
 
                             response[0].TopSeeds.forEach {
-                                tournament.listSeeds.add(
-                                    Tournament.Seeds(it.PlayerName, it.Seed))
+                                tempListSeeds.add(Tournament.Seeds(it.PlayerName, it.Seed))
                             }
 
 
                             response[0].PrizeAndPoints.forEach{
-                                tournament.listPrize.add(Tournament.Prize(it.Round, it.PrizeMoney))
-                                tournament.listPoints.add(Tournament.Points(it.Round, it.Points))
+                                tempListPrize.add(Tournament.Prize(it.Round, it.PrizeMoney))
+                                tempListPoints.add(Tournament.Points(it.Round, it.Points))
                             }
+
+                            tournament.listLastWinners = tempListLastWinners
+                            tournament.listSeeds = tempListSeeds
+                            tournament.listPrize = tempListPrize
+                            tournament.listPoints = tempListPoints
 
                             tournamentViewModel.updateTournament(tournament)
                         }
