@@ -49,15 +49,14 @@ class CalendarFragment : Fragment()
 
         tournamentViewModel = ViewModelProvider(this)[TournamentViewModel::class.java]
         val adapterList = CalendarAdapter {
-            tournamentViewModel.getTournamentByName(it.tournamentName).observe(
-                viewLifecycleOwner
-            ) { tournament ->
+            tournamentViewModel.getTournamentByName(it.tournamentName).observe(viewLifecycleOwner) { tournament ->
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP))
                     .navigate(
                         CalendarFragmentDirections.actionCalendarFragmentToTournamentPageFragment(
                             tournament
                         )
                     )
+                tournamentViewModel.getTournamentByName(it.tournamentName).removeObservers(viewLifecycleOwner)
             }
         }
 
@@ -132,15 +131,18 @@ class CalendarFragment : Fragment()
                                 var exist = false
                                 for (i in it)
                                 {
-                                    i.name = tournament.Name
-                                    i.formattedDate = tournament.FormattedDate
-                                    i.location = tournament.Location
-                                    i.overviewUrl = tournament.OverviewUrl
-                                    i.website = tournament.url_tournament
-                                    i.type = convertTypeToCategory(tournament.Type, tournament.Name)
-                                    tournamentViewModel.updateTournament(i)
-                                    exist = true
-                                    break
+                                    if(tournament.Id.toInt() == i.id)
+                                    {
+                                        i.name = tournament.Name
+                                        i.formattedDate = tournament.FormattedDate
+                                        i.location = tournament.Location
+                                        i.overviewUrl = tournament.OverviewUrl
+                                        i.website = tournament.url_tournament
+                                        i.type = convertTypeToCategory(tournament.Type, tournament.Name)
+                                        tournamentViewModel.updateTournament(i)
+                                        exist = true
+                                        break
+                                    }
                                 }
                                 if(!exist)
                                 {

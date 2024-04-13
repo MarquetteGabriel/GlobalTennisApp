@@ -7,6 +7,7 @@
  */
 package fr.gmarquette.globaltennisapp
 
+import android.database.CursorWindow
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,10 @@ class ATPActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val field = CursorWindow::class.java.getDeclaredField("sCursorWindowSize")
+        field.isAccessible = true
+        field.set(null, 100 * 1024 * 1024)
 
         // Start of Api Worker
         val apiWorkRequest = OneTimeWorkRequestBuilder<ApiService>()

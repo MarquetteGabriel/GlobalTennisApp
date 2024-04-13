@@ -37,7 +37,6 @@ data class Tournament (
 {
 
     var tournamentMonth: Int = 0
-    @Ignore
     var date: TournamentDate = TournamentDate()
     var surface: String = ""
     var indoorOutdoor: String = ""
