@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_atp"
-    app:startDestination="@id/calendarFragment">
+    app:startDestination="@id/loadingVideoFragment">
 
     <fragment
         android:id="@+id/calendarFragment"
@@ -15,6 +16,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_calendarFragment_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/tournamentPageFragment"
@@ -30,5 +34,25 @@
         <argument
             android:name="tournament"
             app:argType="fr.gmarquette.globaltennisapp.model.tournament.Tournament" />
+        <action
+            android:id="@+id/action_tournamentPageFragment_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingVideoFragment"
+        android:name="fr.gmarquette.globaltennisapp.view.loading.LoadingVideoFragment"
+        android:label="LoadingFragment"
+        tools:layout="@layout/loading_fragment">
+        <action
+            android:id="@+id/action_loadingVideoFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="fr.gmarquette.globaltennisapp.view.rankings.LeaderboardFragment"
+        android:label="LeaderboardFragment" >
+        <action
+            android:id="@+id/action_leaderboardFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
 </navigation>

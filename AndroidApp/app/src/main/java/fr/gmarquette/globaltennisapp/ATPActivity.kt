@@ -19,6 +19,9 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import fr.gmarquette.globaltennisapp.api.ApiService
 import fr.gmarquette.globaltennisapp.databinding.ActivityAtpBinding
+import fr.gmarquette.globaltennisapp.view.calendar.CalendarFragmentDirections
+import fr.gmarquette.globaltennisapp.view.rankings.LeaderboardFragmentDirections
+import fr.gmarquette.globaltennisapp.view.tournamentpage.TournamentPageFragmentDirections
 
 class ATPActivity : AppCompatActivity() {
 
@@ -49,6 +52,62 @@ class ATPActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navComponentATP) as NavHostFragment
         navController = navHostFragment.navController
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.matchesMenu -> {
+                    /*
+                    when (navController.currentDestination?.id) {
+                        R.id.leaderboardFragment -> navController.navigate(R.id.action_leaderboardFragment_to_scoresFragment)
+                        R.id.calendarFragment -> navController.navigate(R.id.action_calendarFragment_to_scoresFragment)
+                        R.id.favoritesFragment -> navController.navigate(R.id.action_favoritesFragment_to_scoresFragment)
+
+                        R.id.playerProfileFragment -> navController.navigate(R.id.action_playerProfileFragment_to_scoresFragment)
+                        R.id.tournamentPageFragment -> navController.navigate(R.id.action_tournamentProfilFragment_to_scoresFragment)
+                        R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_scoresFragment)
+                   }
+                     */
+
+                }
+                R.id.calendarMenu -> {
+                    when (navController.currentDestination?.id) {
+                        R.id.leaderboardFragment -> navController.navigate(LeaderboardFragmentDirections.actionLeaderboardFragmentToCalendarFragment())
+                        // R.id.scoresFragment -> navController.navigate(ScoresFragmentDirections.actionScoresFragmentToCalendarFragment("Roger Federer"))
+                        // R.id.favoritesFragment -> navController.navigate(R.id.action_favoritesFragment_to_calendarFragment)
+
+                        // R.id.tournamentPageFragment -> navController.navigate(R.id.action_tournamentProfilFragment_to_calendarFragment)
+                        // R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_calendarFragment)
+                        // R.id.playerProfileFragment -> navController.navigate(R.id.action_playerProfileFragment_to_calendarFragment)
+                    }
+                }
+                R.id.rankMenu -> {
+                    when (navController.currentDestination?.id) {
+                        // R.id.scoresFragment -> navController.navigate(R.id.action_scoresFragment_to_leaderboardFragment)
+                        R.id.calendarFragment -> navController.navigate(CalendarFragmentDirections.actionCalendarFragmentToLeaderboardFragment())
+                        //R.id.favoritesFragment -> navController.navigate(R.id.action_favoritesFragment_to_leaderboardFragment)
+
+                        R.id.tournamentPageFragment -> navController.navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToLeaderboardFragment())
+                        //R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_leaderboardFragment)
+                        //R.id.playerProfileFragment -> navController.navigate(R.id.action_playerProfileFragment_to_leaderboardFragment)
+                    }
+                }
+                R.id.favMenu -> {
+                    /*
+                    when (navController.currentDestination?.id) {
+                        R.id.leaderboardFragment -> navController.navigate(R.id.action_leaderboardFragment_to_favoritesFragment)
+                        R.id.scoresFragment -> navController.navigate(R.id.action_scoresFragment_to_favoritesFragment)
+                        R.id.calendarFragment -> navController.navigate(R.id.action_calendarFragment_to_favoritesFragment)
+
+                        R.id.playerProfileFragment -> navController.navigate(R.id.action_playerProfileFragment_to_favoritesFragment)
+                        R.id.tournamentPageFragment -> navController.navigate(R.id.action_tournamentProfilFragment_to_favoritesFragment)
+                        R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_favoritesFragment)
+                    }
+                     */
+
+                }
+            }
+            true
+        }
+
     }
 
     override fun onDestroy() {
