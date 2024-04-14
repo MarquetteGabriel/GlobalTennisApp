@@ -7,16 +7,184 @@
   ~
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.rankings.LeaderboardFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".view.leaderboard.LeaderboardFragment">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/leaderboardHeaderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/leaderboardSinglesTextView"
+                android:layout_width="136dp"
+                android:layout_height="25dp"
+
+                android:fontFamily="@font/roboto_bold_condensed"
+                android:text="Singles"
+                android:textColor="@color/default_text"
+                android:textSize="14sp"
+                android:textAlignment="center"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/leaderboardLiveTextView"
+                android:layout_width="136dp"
+                android:layout_height="25dp"
+
+                android:fontFamily="@font/roboto_bold_condensed"
+                android:text="Live"
+                android:textColor="@color/default_text"
+                android:textSize="14sp"
+                android:textAlignment="center"
+
+                app:layout_constraintStart_toEndOf="@id/leaderboardSinglesTextView"
+                app:layout_constraintEnd_toStartOf="@id/leaderboardRaceTextView"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/leaderboardRaceTextView"
+                android:layout_width="136dp"
+                android:layout_height="25dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                android:text="Race"
+                android:fontFamily="@font/roboto_bold_condensed"
+                android:textColor="@color/default_text"
+                android:textSize="14sp"
+                android:textAlignment="center" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/leaderboardTopLayout"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/section"
+            app:layout_constraintTop_toBottomOf="@id/leaderboardHeaderLayout">
+
+            <TextView
+                android:id="@+id/leaderboardTopRank"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+
+                android:fontFamily="@font/roboto_bold"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+
+                android:text="Rank"
+                android:textColor="@color/default_text"
+                android:textSize="14sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/leaderboardTopUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+
+                android:fontFamily="@font/roboto_bold"
+                android:paddingStart="60dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+
+                android:text="Update"
+                android:textColor="@color/default_text"
+                android:textSize="14sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/leaderboardTopRank"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/leaderboardTopName"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+
+                android:fontFamily="@font/roboto_bold"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="10dp"
+                android:text="Player"
+                android:textAlignment="center"
+
+                android:textColor="@color/default_text"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/leaderboardTopPoints"
+                app:layout_constraintStart_toEndOf="@+id/leaderboardTopUpdate"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/leaderboardTopPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+
+                android:fontFamily="@font/roboto_bold"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="Points"
+
+                android:textColor="@color/default_text"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingBottom="25dp"
+            android:paddingTop="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/leaderboardTopLayout">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/leaderboardRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/rankings_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

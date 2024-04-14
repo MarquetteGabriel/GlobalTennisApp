@@ -24,14 +24,11 @@ import fr.gmarquette.globaltennisapp.R
 import fr.gmarquette.globaltennisapp.databinding.FragmentCalendarBinding
 import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 
 class CalendarFragment : Fragment()
 {
 
     private lateinit var binding: FragmentCalendarBinding
-    private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var tournamentViewModel: TournamentViewModel
 
     override fun onCreateView(
