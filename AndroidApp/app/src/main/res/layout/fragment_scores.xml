@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~ @brief Copyright (c) 2024 Gabriel Marquette
+  ~
+  ~ Copyright (c) 2024 Gabriel Marquette. All rights reserved.
+  ~
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.scores.ScoresFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/yearRangeCalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/matchRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:background="@color/background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/yearRangeCalendarView" />
+
+        <TextView android:id="@+id/noMatchesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No matches"
+            android:textSize="24sp"
+            android:fontFamily="@font/hack_bold"
+            android:textColor="@color/text_unselected"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/yearRangeCalendarView"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
