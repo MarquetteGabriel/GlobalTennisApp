@@ -10,6 +10,8 @@ package fr.gmarquette.globaltennisapp.view.scores
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.gmarquette.globaltennisapp.R
 import fr.gmarquette.globaltennisapp.databinding.CalendarHeaderBinding
@@ -128,20 +130,20 @@ class ScoresAdapter(private val clickListener: (ScoresItems.Item) -> Unit, priva
             {
                 if(matches.match.getResult() == "home")
                 {
-                    matchesBinding.setTextColor(context.getColor(R.color.loose))
-                    matchesBinding.serie1.setTextColor(context.getColor(R.color.loose_tete_de_serie))
+
+                    matchesBinding.root.findViewById<TextView>(R.id.player1).setTextColor(context.getColor(R.color.loose))
+                    matchesBinding.root.findViewById<TextView>(R.id.serie1).setTextColor(context.getColor(R.color.loose_tete_de_serie))
                 }
                 else
                 {
-                    matchesBinding.player2.setTextColor(context.getColor(R.color.loose))
-                    matchesBinding.serie2.setTextColor(context.getColor(R.color.loose_tete_de_serie))
+                    matchesBinding.root.findViewById<TextView>(R.id.player2).setTextColor(context.getColor(R.color.loose))
+                    matchesBinding.root.findViewById<TextView>(R.id.serie2).setTextColor(context.getColor(R.color.loose_tete_de_serie))
                 }
             }
 
+            matchesBinding.root.findViewById<ImageView>(R.id.flag1).setImageResource(0)
+            matchesBinding.root.findViewById<ImageView>(R.id.flag2).setImageResource(0)
 
-
-            FlagsAPI.getFlag(matches.match.playerOne.nationality, matchesBinding.flag1, context)
-            FlagsAPI.getFlag(matches.match.playerTwo.nationality, matchesBinding.flag2, context)
             matchesBinding.executePendingBindings()
         }
 

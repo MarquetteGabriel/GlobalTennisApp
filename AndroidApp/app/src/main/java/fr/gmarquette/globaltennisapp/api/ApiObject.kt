@@ -13,6 +13,7 @@ import fr.gmarquette.globaltennisapp.api.interfaces.ApiInterfaceCalendar
 import fr.gmarquette.globaltennisapp.api.interfaces.ApiInterfaceLeaderboardLive
 import fr.gmarquette.globaltennisapp.api.interfaces.ApiInterfaceLeaderboardOfficial
 import fr.gmarquette.globaltennisapp.api.interfaces.ApiInterfaceLeaderboardRace
+import fr.gmarquette.globaltennisapp.api.interfaces.ApiInterfaceLiveScore
 import fr.gmarquette.globaltennisapp.api.interfaces.ApiInterfaceTournamentPage
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -32,5 +33,6 @@ object ApiObject
     val rankingOfficialApi: ApiInterfaceLeaderboardOfficial = retrofit.create(ApiInterfaceLeaderboardOfficial::class.java)
     val rankingRaceApi: ApiInterfaceLeaderboardRace = retrofit.create(ApiInterfaceLeaderboardRace::class.java)
     val rankingLiveApi: ApiInterfaceLeaderboardLive = retrofit.create(ApiInterfaceLeaderboardLive::class.java)
+    val livescoreApi: ApiInterfaceLiveScore = retrofit.create(ApiInterfaceLiveScore::class.java)
 
 }

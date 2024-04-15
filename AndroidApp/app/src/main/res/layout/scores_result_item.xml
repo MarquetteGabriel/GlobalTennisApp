@@ -5,14 +5,13 @@
   ~ Copyright (c) 2024 Gabriel Marquette. All rights reserved.
   ~
   -->
-
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
             name="match"
-            type="fr.gmarquette.globaltennisapp.view.scores.ScoresItems" />
+            type="fr.gmarquette.globaltennisapp.view.scores.ScoresItems.Item" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +49,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerOneSetOne}"
+                    android:text="@{match.component1().homeScores.one}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -66,7 +65,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerOneSetOneTieBreak}"
+                    android:text="@{match.component1().homeTiebreakScores.one}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -92,7 +91,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetOne}"
+                    android:text="@{match.component1().awayScores.one}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -108,7 +107,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetOneTieBreak}"
+                    android:text="@{match.component1().awayTiebreakScores.one}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -147,7 +146,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerOneSetTwo}"
+                    android:text="@{match.component1().homeScores.two}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -166,7 +165,7 @@
                     android:textColor="@color/default_text"
                     android:textSize="11sp"
 
-                    android:text="@{match.component1().score.playerOneSetTwoTieBreak}"
+                    android:text="@{match.component1().homeTiebreakScores.two}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/set2player1Text"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -189,7 +188,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetTwo}"
+                    android:text="@{match.component1().awayScores.two}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -205,7 +204,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetTwoTieBreak}"
+                    android:text="@{match.component1().awayTiebreakScores.two}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -244,7 +243,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerOneSetThree}"
+                    android:text="@{match.component1().homeScores.three}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -263,7 +262,7 @@
                     android:textColor="@color/default_text"
                     android:textSize="11sp"
 
-                    android:text="@{match.component1().score.playerOneSetThreeTieBreak}"
+                    android:text="@{match.component1().homeTiebreakScores.three}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/set3player1Text"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -286,7 +285,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetThree}"
+                    android:text="@{match.component1().awayScores.three}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -302,7 +301,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetThreeTieBreak}"
+                    android:text="@{match.component1().awayTiebreakScores.three}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -340,7 +339,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerOneSetFour}"
+                    android:text="@{match.component1().homeScores.four}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -359,7 +358,7 @@
                     android:textColor="@color/default_text"
                     android:textSize="11sp"
 
-                    android:text="@{match.component1().score.playerOneSetFourTieBreak}"
+                    android:text="@{match.component1().homeTiebreakScores.four}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/set4player1Text"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -382,7 +381,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetFour}"
+                    android:text="@{match.component1().awayScores.four}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -398,7 +397,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetFourTieBreak}"
+                    android:text="@{match.component1().awayTiebreakScores.four}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -436,7 +435,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerOneSetFive}"
+                    android:text="@{match.component1().homeScores.five}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -455,7 +454,7 @@
                     android:textColor="@color/default_text"
                     android:textSize="11sp"
 
-                    android:text="@{match.component1().score.playerOneSetFiveTieBreak}"
+                    android:text="@{match.component1().homeTiebreakScores.five}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/set5player1Text"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -478,7 +477,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetFive}"
+                    android:text="@{match.component1().awayScores.five}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -494,7 +493,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().score.playerTwoSetFiveTieBreak}"
+                    android:text="@{match.component1().awayTiebreakScores.five}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"

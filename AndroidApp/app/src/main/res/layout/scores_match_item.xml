@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
             name="match"
-            type="fr.gmarquette.globaltennisapp.view.scores.ScoresItems" />
+            type="fr.gmarquette.globaltennisapp.view.scores.ScoresItems.Item" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -57,7 +57,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:textColor="@color/default_text"
                         android:textSize="11sp"
-                        android:text="@{match.component1().seriePlayerOne}"
+                        android:text="@{match.component1().homeSeed}"
 
                         android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -111,7 +111,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:textColor="@color/default_text"
                         android:textSize="11sp"
-                        android:text="@{match.component1().seriePlayerTwo}"
+                        android:text="@{match.component1().awaySeed}"
 
                         android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -150,7 +150,7 @@
 
                         android:fontFamily="@font/roboto_bold"
                         android:gravity="center"
-                        android:text="@{match.component1().seriePlayerTwo}"
+                        android:text="16:00"
                         android:textColor="@color/default_text"
 
                         android:textSize="11sp"

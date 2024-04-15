@@ -28,9 +28,22 @@ data class Matches
     val tournamentCategory: String
     )
 {
+    var awaySeed = ""
+    var homeSeed = ""
+
+    init {
+        getSeeds()
+    }
 
     fun isLive(status: String): Boolean {
         return status == "inprogress"
+    }
+
+    private fun getSeeds()
+    {
+        // TODO: Implement this method
+        this.awaySeed = ""
+        this.homeSeed = ""
     }
 
     fun getResult(): String
@@ -38,20 +51,20 @@ data class Matches
         var homeSets = 0
         var awaySets = 0
 
-        homeSets += if (homeScores.one > awayScores.one) 1 else 0
-        awaySets += if (homeScores.one < awayScores.one) 1 else 0
+        homeSets += if (homeScores.one.toInt() > awayScores.one.toInt()) 1 else 0
+        awaySets += if (homeScores.one.toInt() < awayScores.one.toInt()) 1 else 0
 
-        homeSets += if (homeScores.two > awayScores.two) 1 else 0
-        awaySets += if (homeScores.two < awayScores.two) 1 else 0
+        homeSets += if (homeScores.two.toInt() > awayScores.two.toInt()) 1 else 0
+        awaySets += if (homeScores.two.toInt() < awayScores.two.toInt()) 1 else 0
 
-        homeSets += if (homeScores.three > awayScores.three) 1 else 0
-        awaySets += if (homeScores.three < awayScores.three) 1 else 0
+        homeSets += if (homeScores.three.toInt() > awayScores.three.toInt()) 1 else 0
+        awaySets += if (homeScores.three.toInt() < awayScores.three.toInt()) 1 else 0
 
-        homeSets += if (homeScores.four > awayScores.four) 1 else 0
-        awaySets += if (homeScores.four < awayScores.four) 1 else 0
+        homeSets += if (homeScores.four.toInt() > awayScores.four.toInt()) 1 else 0
+        awaySets += if (homeScores.four.toInt() < awayScores.four.toInt()) 1 else 0
 
-        homeSets += if (homeScores.five > awayScores.five) 1 else 0
-        awaySets += if (homeScores.five < awayScores.five) 1 else 0
+        homeSets += if (homeScores.five.toInt() > awayScores.five.toInt()) 1 else 0
+        awaySets += if (homeScores.five.toInt() < awayScores.five.toInt()) 1 else 0
 
         return if (homeSets > awaySets) {
             "home"

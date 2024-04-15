@@ -12,10 +12,4 @@ object ScoresObject
 {
     const val MATCH_ITEM = 0
     const val MATCH_HEADER = 1
-
-    fun getItems() : ArrayList<Any> {
-        val itemList = arrayListOf<Any>()
-
-        return itemList
-    }
 }
