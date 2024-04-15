@@ -8,6 +8,9 @@
 
 package fr.gmarquette.globaltennisapp.model.matches
 
+import androidx.room.Entity
+
+@Entity(tableName = "matches")
 data class Matches
     (
     val awayFlag: AwayFlag,

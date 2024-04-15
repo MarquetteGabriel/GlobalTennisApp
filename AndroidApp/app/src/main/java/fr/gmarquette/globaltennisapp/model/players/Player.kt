@@ -9,10 +9,13 @@
 package fr.gmarquette.globaltennisapp.model.players
 
 import android.graphics.Bitmap
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import fr.gmarquette.globaltennisapp.model.enums.Category
+import fr.gmarquette.globaltennisapp.model.matches.Matches
 
-data class Players (
+@Entity(tableName = "players")
+data class Player (
     var firstName: String,
     var lastName: String,
     var age: Int,
@@ -30,7 +33,7 @@ data class Players (
     val injuries: List<String>,
     var category: Category,
     val rank: Rank,
-    // val results: List<Matches>, Not Available Yet
+    val results: List<Matches>,
 )
 {
     @PrimaryKey(autoGenerate = true)
@@ -42,6 +45,7 @@ data class Players (
     init {
         fullName = "$firstName $lastName"
     }
+
     data class Rank(
         var currentRank: Int,
         var previousRank: Int,

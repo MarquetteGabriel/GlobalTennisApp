@@ -84,6 +84,17 @@ class TypeConverter
         return Gson().fromJson(json, listType)
     }
 
+    @TypeConverter
+    fun fromList(list: List<String>?): String? = Gson().toJson(list)
+
+    @TypeConverter
+    fun toList(string: String?): List<String>? {
+        val listType = object : TypeToken<List<String>>() {}.type
+        return Gson().fromJson<List<String>>(string, listType)
+    }
+
+
+
 
 
 }
