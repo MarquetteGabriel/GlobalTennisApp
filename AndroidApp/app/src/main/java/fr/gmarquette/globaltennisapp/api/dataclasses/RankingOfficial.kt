@@ -9,10 +9,10 @@
 package fr.gmarquette.globaltennisapp.api.dataclasses
 
 data class RankingOfficial(
-    val rank: Int,
+    val rank: String,
     val name: String,
-    val points: Int,
-    val diff: Int,
+    val points: String,
+    val diff: String,
     val overview_url: String,
     val flag_url: String
 )

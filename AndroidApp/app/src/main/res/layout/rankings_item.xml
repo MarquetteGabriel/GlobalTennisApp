@@ -17,91 +17,91 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/leaderboardItemRank"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-
-            android:fontFamily="@font/roboto_bold"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-
-            android:text="123"
-            android:textColor="@color/default_text"
-            android:textSize="14sp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutItemSeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="5sp">
 
-        <TextView
-            android:id="@+id/leaderboardItemUpdate"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            <TextView
+                android:id="@+id/leaderboardItemRank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-            android:fontFamily="@font/roboto_bold"
-            android:paddingStart="70dp"
-            android:paddingEnd="15dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+                android:textColor="@color/default_text"
+                android:fontFamily="@font/roboto_medium"
+                android:text="123"
+                android:textSize="14sp"
 
-            android:text="+123"
-            android:textColor="@color/default_text"
-            android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/leaderboardItemRank"
-            app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/leaderboardItemUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:paddingStart="70dp"
+
+                android:text="+123"
+                android:textColor="@color/default_text"
+                android:fontFamily="@font/roboto_medium"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/leaderboardItemRank"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/leaderboardItemFlag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:paddingStart="140dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/leaderboardItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/default_text"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/leaderboardItemFlag"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/leaderboardItemPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/default_text"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/leaderboardItemFlag"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-
-            android:paddingStart="140dp"
-            android:paddingEnd="15dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/leaderboardItemName"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-
-            android:fontFamily="@font/roboto_bold"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-
-            android:textColor="@color/default_text"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/leaderboardItemFlag"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/leaderboardItemPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-
-            android:fontFamily="@font/roboto_bold"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-
-            android:textColor="@color/default_text"
-            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/section"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutItemSeed" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -15,13 +15,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.gmarquette.globaltennisapp.R
 import fr.gmarquette.globaltennisapp.api.ApiObject
 import fr.gmarquette.globaltennisapp.databinding.FragmentTournamentPageBinding
-import fr.gmarquette.globaltennisapp.model.tournament.BitmapUrl
+import fr.gmarquette.globaltennisapp.model.BitmapUrl
 import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -79,7 +80,7 @@ class TournamentPageFragment: Fragment()
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
             view.findViewById<TextView>(R.id.titleRecyclerView).text = "Seeds"
             recyclerView.adapter = TournamentPageAdapter(args.tournament.listSeeds) {
-                // Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(R.id.playerProfileFragment)
+                Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE
         }
@@ -88,7 +89,7 @@ class TournamentPageFragment: Fragment()
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
             view.findViewById<TextView>(R.id.titleRecyclerView).text = "Past Champions"
             recyclerView.adapter = TournamentPageAdapter(args.tournament.listLastWinners) {
-                // Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(R.id.playerProfileFragment)
+                Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE
         }

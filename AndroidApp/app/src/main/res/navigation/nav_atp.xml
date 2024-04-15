@@ -18,7 +18,11 @@
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_calendarFragment_to_leaderboardFragment"
-            app:destination="@id/leaderboardFragment" />
+            app:destination="@id/leaderboardFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/tournamentPageFragment"
@@ -37,6 +41,13 @@
         <action
             android:id="@+id/action_tournamentPageFragment_to_leaderboardFragment"
             app:destination="@id/leaderboardFragment" />
+        <action
+            android:id="@+id/action_tournamentPageFragment_to_playerFragment"
+            app:destination="@id/playerFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/loadingVideoFragment"
@@ -53,6 +64,44 @@
         android:label="LeaderboardFragment" >
         <action
             android:id="@+id/action_leaderboardFragment_to_calendarFragment"
-            app:destination="@id/calendarFragment" />
+            app:destination="@id/calendarFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
+        <action
+            android:id="@+id/action_leaderboardFragment_to_playerFragment"
+            app:destination="@id/playerFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="fr.gmarquette.globaltennisapp.view.player.PlayerFragment"
+        android:label="fragment_player"
+        tools:layout="@layout/fragment_player" >
+        <action
+            android:id="@+id/action_playerFragment_to_tournamentPageFragment"
+            app:destination="@id/tournamentPageFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_playerFragment_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_playerFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 </navigation>

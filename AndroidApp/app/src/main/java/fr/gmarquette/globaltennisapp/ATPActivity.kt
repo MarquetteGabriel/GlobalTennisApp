@@ -9,6 +9,7 @@ package fr.gmarquette.globaltennisapp
 
 import android.database.CursorWindow
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -20,6 +21,7 @@ import androidx.work.WorkManager
 import fr.gmarquette.globaltennisapp.api.ApiService
 import fr.gmarquette.globaltennisapp.databinding.ActivityAtpBinding
 import fr.gmarquette.globaltennisapp.view.calendar.CalendarFragmentDirections
+import fr.gmarquette.globaltennisapp.view.player.PlayerFragmentDirections
 import fr.gmarquette.globaltennisapp.view.rankings.LeaderboardFragmentDirections
 import fr.gmarquette.globaltennisapp.view.tournamentpage.TournamentPageFragmentDirections
 
@@ -52,6 +54,18 @@ class ATPActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navComponentATP) as NavHostFragment
         navController = navHostFragment.navController
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.loadingVideoFragment)
+            {
+                binding.bottomNavigationView.visibility = View.GONE
+            }
+            else
+            {
+                binding.bottomNavigationView.visibility = View.VISIBLE
+            }
+        }
+
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.matchesMenu -> {
@@ -74,9 +88,9 @@ class ATPActivity : AppCompatActivity() {
                         // R.id.scoresFragment -> navController.navigate(ScoresFragmentDirections.actionScoresFragmentToCalendarFragment("Roger Federer"))
                         // R.id.favoritesFragment -> navController.navigate(R.id.action_favoritesFragment_to_calendarFragment)
 
-                        // R.id.tournamentPageFragment -> navController.navigate(R.id.action_tournamentProfilFragment_to_calendarFragment)
+                        R.id.tournamentPageFragment -> navController.navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToCalendarFragment())
                         // R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_calendarFragment)
-                        // R.id.playerProfileFragment -> navController.navigate(R.id.action_playerProfileFragment_to_calendarFragment)
+                        R.id.playerFragment -> navController.navigate(PlayerFragmentDirections.actionPlayerFragmentToCalendarFragment())
                     }
                 }
                 R.id.rankMenu -> {
@@ -87,7 +101,7 @@ class ATPActivity : AppCompatActivity() {
 
                         R.id.tournamentPageFragment -> navController.navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToLeaderboardFragment())
                         //R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_leaderboardFragment)
-                        //R.id.playerProfileFragment -> navController.navigate(R.id.action_playerProfileFragment_to_leaderboardFragment)
+                        R.id.playerFragment -> navController.navigate(PlayerFragmentDirections.actionPlayerFragmentToLeaderboardFragment())
                     }
                 }
                 R.id.favMenu -> {

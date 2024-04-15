@@ -11,5 +11,8 @@
     <color name="loose">#646464</color>
     <color name="loose_tete_de_serie">#323232</color>
 
+    <color name="green">#00FF00</color>
+    <color name="red">#FF0000</color>
+
 
 </resources>

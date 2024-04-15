@@ -6,7 +6,7 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.model.tournament
+package fr.gmarquette.globaltennisapp.model
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -21,6 +21,7 @@ import java.net.URL
 class BitmapUrl {
 
     private val url = "https://www.atptour.com"
+
     suspend fun getBitmapFromUrl(overviewUrl: String, context: Context): Bitmap?
     {
         val urlOverview = url + overviewUrl
