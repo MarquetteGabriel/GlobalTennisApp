@@ -22,7 +22,7 @@ object CalendarObject {
 
                 tournamentList = tournamentList.sortedWith(
                         compareBy({ it.tournamentMonth },
-                                { it.date.startDay.toInt() })
+                                { it.date?.startDay?.toInt() })
                 )
 
                 for (tournament in tournamentList)
@@ -31,11 +31,11 @@ object CalendarObject {
 
                         if(!headerExist)
                         {
-                                itemList.add(CalendarItems.Header(getMonth(tournament.tournamentMonth)))
+                                itemList.add(CalendarItems.Header(getMonth(tournament.tournamentMonth!!)))
                         }
 
-                        val pastChamps = if(tournament.listLastWinners.isNotEmpty()) {
-                                "🏆 " + tournament.listLastWinners.first().year.toString() + " - " + tournament.listLastWinners.first().name
+                        val pastChamps = if(!tournament.lastWinners.isNullOrEmpty()) {
+                                "🏆 " + tournament.lastWinners.first().year.toString() + " - " + tournament.lastWinners.first().name
                         } else {
                                 ""
                         }

@@ -23,6 +23,10 @@ import fr.gmarquette.globaltennisapp.R
 import fr.gmarquette.globaltennisapp.api.ApiObject
 import fr.gmarquette.globaltennisapp.databinding.FragmentTournamentPageBinding
 import fr.gmarquette.globaltennisapp.model.BitmapUrl
+import fr.gmarquette.globaltennisapp.model.tournament.LastWinners
+import fr.gmarquette.globaltennisapp.model.tournament.Points
+import fr.gmarquette.globaltennisapp.model.tournament.Prize
+import fr.gmarquette.globaltennisapp.model.tournament.Seeds
 import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -51,7 +55,7 @@ class TournamentPageFragment: Fragment()
             val image = BitmapUrl().getBitmapFromUrl(args.tournament.overviewUrl, requireContext())
             CoroutineScope(Dispatchers.Main).launch {
                 binding.tournamentImage.setImageBitmap(image)
-                args.tournament.picture = image
+                // args.tournament.picture = image
             }
         }
 
@@ -65,7 +69,7 @@ class TournamentPageFragment: Fragment()
         view.findViewById<TextView>(R.id.tournamentDrawSizeText).text = args.tournament.singleDrawSize.toString()
         view.findViewById<TextView>(R.id.tournamentSurfaceText).text = surface
         view.findViewById<TextView>(R.id.tournamentPrizeMoneyText).text = args.tournament.prizeMoney.toString()
-        binding.tournamentImage.setImageBitmap(args.tournament.picture)
+        // binding.tournamentImage.setImageBitmap(args.tournament.picture)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewTournament)
         recyclerView.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
@@ -76,19 +80,21 @@ class TournamentPageFragment: Fragment()
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE
         }
         binding.seedsTextViewButton.setOnClickListener {
+            val listSeeds = tournamentViewModel.getSeedsOfTournament(args.tournament.id.toString())
             view.findViewById<View>(R.id.overview_tournament).visibility = View.GONE
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
             view.findViewById<TextView>(R.id.titleRecyclerView).text = "Seeds"
-            recyclerView.adapter = TournamentPageAdapter(args.tournament.listSeeds) {
+            recyclerView.adapter = TournamentPageAdapter(listSeeds) {
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE
         }
         binding.pastChampionsTextViewButton.setOnClickListener{
+            val listPastChampions = tournamentViewModel.getLastWinnersOfTournament(args.tournament.id.toString())
             view.findViewById<View>(R.id.overview_tournament).visibility = View.GONE
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
             view.findViewById<TextView>(R.id.titleRecyclerView).text = "Past Champions"
-            recyclerView.adapter = TournamentPageAdapter(args.tournament.listLastWinners) {
+            recyclerView.adapter = TournamentPageAdapter(listPastChampions) {
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE
@@ -115,30 +121,30 @@ class TournamentPageFragment: Fragment()
                             tournament.singleDrawSize = response[0].SingleDrawSize
                             tournament.surface = response[0].Surface
 
-                            val tempListLastWinners = mutableListOf<Tournament.LastWinners>()
-                            val tempListSeeds = mutableListOf<Tournament.Seeds>()
-                            val tempListPrize = mutableListOf<Tournament.Prize>()
-                            val tempListPoints = mutableListOf<Tournament.Points>()
+                            val tempListLastWinners = mutableListOf<LastWinners>()
+                            val tempListSeeds = mutableListOf<Seeds>()
+                            val tempListPrize = mutableListOf<Prize>()
+                            val tempListPoints = mutableListOf<Points>()
 
                             response[0].PastChampions.forEach {
-                                tempListLastWinners.add(Tournament.LastWinners(it.FirstName + " " + it.LastName, it.Year))
+                                tempListLastWinners.add(LastWinners(it.FirstName + " " + it.LastName, it.Year, tournament.id))
                             }
 
                             response[0].TopSeeds.forEach {
-                                tempListSeeds.add(Tournament.Seeds(it.PlayerName, it.Seed))
+                                tempListSeeds.add(Seeds(it.PlayerName, it.Seed, tournament.id))
                             }
 
 
                             response[0].PrizeAndPoints.forEach{
-                                tempListPrize.add(Tournament.Prize(it.Round, it.PrizeMoney))
-                                tempListPoints.add(Tournament.Points(it.Round, it.Points))
+                                tempListPrize.add(Prize(it.Round, it.PrizeMoney, tournament.id))
+                                tempListPoints.add(Points(it.Round, it.Points, tournament.id))
                             }
 
-                            tournament.listLastWinners = tempListLastWinners
-                            tournament.listSeeds = tempListSeeds
-                            tournament.listPrize = tempListPrize
-                            tournament.listPoints = tempListPoints
+                            // tournament.lastWinners? = tempListLastWinners
 
+
+
+                            // tournament.lastWinners = tempListLastWinners
                             tournamentViewModel.updateTournament(tournament)
                         }
                     }

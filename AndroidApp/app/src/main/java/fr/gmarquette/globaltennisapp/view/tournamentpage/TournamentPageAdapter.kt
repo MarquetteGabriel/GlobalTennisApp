@@ -14,7 +14,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.gmarquette.globaltennisapp.R
-import fr.gmarquette.globaltennisapp.model.tournament.Tournament
+import fr.gmarquette.globaltennisapp.model.tournament.LastWinners
+import fr.gmarquette.globaltennisapp.model.tournament.Seeds
 
 class TournamentPageAdapter (private val list: List<Any>,
                                     private val clickListener: (Any) -> Unit) : RecyclerView.Adapter<TournamentPageAdapter.ViewHolder>(){
@@ -40,12 +41,12 @@ class TournamentPageAdapter (private val list: List<Any>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val player = list[position]
 
-        if(player is Tournament.Seeds)
+        if(player is Seeds)
         {
             holder.playerSeed.text = player.name
             holder.valueSeed.text = player.seed.toString()
         }
-        if (player is Tournament.LastWinners)
+        if (player is LastWinners)
         {
             holder.playerSeed.text = player.name
             holder.valueSeed.text = player.year.toString()

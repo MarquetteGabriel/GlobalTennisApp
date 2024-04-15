@@ -57,4 +57,20 @@ class TournamentViewModel(application: Application): AndroidViewModel(applicatio
     fun getTournamentByName(name: String): LiveData<Tournament> {
         return repository.getTournamentByName(name)
     }
+
+    fun getLastWinnersOfTournament(tournamentId: String): List<LastWinners> {
+        return repository.getLastWinnersOfTournament(tournamentId)
+    }
+
+    fun getSeedsOfTournament(tournamentId: String): List<Seeds> {
+        return repository.getSeedsOfTournament(tournamentId)
+    }
+
+    fun getPrizeOfTournament(tournamentId: String): List<Prize> {
+        return repository.getPrizeOfTournament(tournamentId)
+    }
+
+    fun getPointsOfTournament(tournamentId: String): List<Points> {
+        return repository.getPointsOfTournament(tournamentId)
+    }
 }

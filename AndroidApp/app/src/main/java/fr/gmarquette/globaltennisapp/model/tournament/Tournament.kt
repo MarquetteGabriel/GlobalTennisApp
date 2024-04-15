@@ -8,13 +8,13 @@
 
 package fr.gmarquette.globaltennisapp.model.tournament
 
-import android.graphics.Bitmap
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import fr.gmarquette.globaltennisapp.api.dataclasses.CalendarATP
 import fr.gmarquette.globaltennisapp.model.enums.TournamentType
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -24,41 +24,56 @@ import java.util.Locale
 @Entity(tableName = "tournaments")
 data class Tournament (
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int,
     var name: String,
     var location: String,
     var formattedDate: String,
     var type: TournamentType,
     var overviewUrl: String,
     var website: String,
-
+    var tournamentMonth: Int?,
+    @Ignore @IgnoredOnParcel var date: TournamentDate? = null,
+    var surface: String?,
+    var indoorOutdoor: String?,
+    var singleDrawSize: Int?,
+    var picturePath: String?,
+    // val picture: Bitmap?,
+    var prizeMoney: Int?,
+    @Ignore @IgnoredOnParcel val lastWinners: List<LastWinners>? = null,
+    @Ignore @IgnoredOnParcel val seeds: List<Seeds>? = null,
+    @Ignore @IgnoredOnParcel val prizes: List<Prize>? = null,
+    @Ignore @IgnoredOnParcel val points: List<Points>? = null
 ) : Parcelable
 {
-
-    var tournamentMonth: Int = 0
-    var date: TournamentDate = TournamentDate()
-    var surface: String = ""
-    var indoorOutdoor: String = ""
-    var singleDrawSize: Int = 0
-    var picture: Bitmap? = null
-    var prizeMoney: Int = 0
-    var listLastWinners: MutableList<LastWinners> = mutableListOf()
-    var listSeeds: MutableList<Seeds> = mutableListOf()
-    @Ignore
-    var listPrize: MutableList<Prize> = mutableListOf()
-    @Ignore
-    var listPoints: MutableList<Points> = mutableListOf()
-
-    data class LastWinners(val name: String, val year: Int)
-    data class Seeds(val name: String, val seed: Int)
-    data class Prize(val round: String, val prize: Int)
-    data class Points(val round: String, val points: Int)
-
-    constructor(calendar: CalendarATP): this(calendar.Id.toInt(), calendar.Name, calendar.Location, calendar.FormattedDate, convertTypeToCategory(calendar.Type, calendar.Name), calendar.OverviewUrl, calendar.url_tournament)
-    {
+    constructor(id: Int, name: String, location: String, formattedDate: String, type: TournamentType, overviewUrl: String, website: String, tournamentMonth: Int) : this(
+        id, name, location, formattedDate, type, overviewUrl, website, 0, null, null, null, null, null, null, null, null, null)
+    constructor(calendar: CalendarATP): this(
+        calendar.Id.toInt(),
+        calendar.Name,
+        calendar.Location,
+        calendar.FormattedDate,
+        convertTypeToCategory(calendar.Type, calendar.Name),
+        calendar.OverviewUrl,
+        calendar.url_tournament,
+        0, // tournamentMonth
+        null, // date
+        null, // surface
+        null, // indoorOutdoor
+        null, // singleDrawSize
+        null, // picture
+        null,  // prizeMoney
+        null, // lastWinners
+        null, // seeds
+        null, // prizes
+        null // points
+    ) {
         this.date = convertFormattedDate(calendar.FormattedDate)
-        this.tournamentMonth = setTournamentMonth(this.date.startMonth.lowercase().replaceFirstChar(Char::uppercase), this.date.endMonth.lowercase().replaceFirstChar(Char::uppercase))
+        this.tournamentMonth = this.date?.let {
+            setTournamentMonth(
+                it.startMonth.lowercase().replaceFirstChar(Char::uppercase),
+                it.endMonth.lowercase().replaceFirstChar(Char::uppercase)
+            )
+        }
     }
 
 
@@ -121,7 +136,4 @@ data class Tournament (
     }
 
     data class TournamentDate(val startDay: String, val startMonth: String, val startYear: String, val endDay: String, val endMonth: String, val endYear: String)
-    {
-        constructor() : this("","","","","","")
-    }
 }
