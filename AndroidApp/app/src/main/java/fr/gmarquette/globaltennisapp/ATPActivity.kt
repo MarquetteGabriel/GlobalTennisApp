@@ -16,6 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import fr.gmarquette.globaltennisapp.api.ApiService
 import fr.gmarquette.globaltennisapp.databinding.ActivityAtpBinding
@@ -49,8 +50,8 @@ class ATPActivity : AppCompatActivity() {
         field.set(null, 100 * 1024 * 1024)
 
         // Start of Api Worker
-        // val apiWorkRequest = OneTimeWorkRequestBuilder<ApiService>().build()
-        // WorkManager.getInstance(this).enqueue(apiWorkRequest)
+        val apiWorkRequest = OneTimeWorkRequestBuilder<ApiService>().build()
+        WorkManager.getInstance(this).enqueue(apiWorkRequest)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navComponentATP) as NavHostFragment
         navController = navHostFragment.navController
