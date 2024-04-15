@@ -61,6 +61,9 @@ class TournamentPageFragment: Fragment()
 
         getTournamentInformation(args.tournament)
 
+        val lastWinnersList = tournamentViewModel.getLastWinnersOfTournament(args.tournament.id.toString()).value!!
+        val seedsList = tournamentViewModel.getSeedsOfTournament(args.tournament.id.toString()).value!!
+
         val surface = args.tournament.surface + ", " + args.tournament.indoorOutdoor
         binding.tournamentName.text = args.tournament.name
         view.findViewById<TextView>(R.id.tournamentLevelText).text = args.tournament.type.description
@@ -80,21 +83,21 @@ class TournamentPageFragment: Fragment()
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE
         }
         binding.seedsTextViewButton.setOnClickListener {
-            val listSeeds = tournamentViewModel.getSeedsOfTournament(args.tournament.id.toString())
+            // val listSeeds = tournamentViewModel.getSeedsOfTournament(args.tournament.id.toString())
             view.findViewById<View>(R.id.overview_tournament).visibility = View.GONE
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
             view.findViewById<TextView>(R.id.titleRecyclerView).text = "Seeds"
-            recyclerView.adapter = TournamentPageAdapter(listSeeds.value!!) {
+            recyclerView.adapter = TournamentPageAdapter(seedsList) {
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE
         }
         binding.pastChampionsTextViewButton.setOnClickListener{
-            val listPastChampions = tournamentViewModel.getLastWinnersOfTournament(args.tournament.id.toString())
+            // val listPastChampions = tournamentViewModel.getLastWinnersOfTournament(args.tournament.id.toString())
             view.findViewById<View>(R.id.overview_tournament).visibility = View.GONE
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
             view.findViewById<TextView>(R.id.titleRecyclerView).text = "Past Champions"
-            recyclerView.adapter = TournamentPageAdapter(listPastChampions.value!!) {
+            recyclerView.adapter = TournamentPageAdapter(lastWinnersList) {
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE
@@ -140,11 +143,26 @@ class TournamentPageFragment: Fragment()
                                 tempListPoints.add(Points(it.Round, it.Points, tournament.id))
                             }
 
-                            // tournament.lastWinners? = tempListLastWinners
+                            if(tournament.lastWinners == null) {
+                                tournamentViewModel.addAllLastWinners(tempListLastWinners)
+                                tournament.lastWinners = tempListLastWinners
+                            }
 
+                            if(tournament.seeds == null) {
+                                tournamentViewModel.addAllSeeds(tempListSeeds)
+                                tournament.seeds = tempListSeeds
+                            }
 
+                            if(tournament.prizes == null) {
+                                tournamentViewModel.addAllPrize(tempListPrize)
+                                tournament.prizes = tempListPrize
+                            }
 
-                            // tournament.lastWinners = tempListLastWinners
+                            if(tournament.points == null) {
+                                tournamentViewModel.addAllPoints(tempListPoints)
+                                tournament.points = tempListPoints
+                            }
+
                             tournamentViewModel.updateTournament(tournament)
                         }
                     }

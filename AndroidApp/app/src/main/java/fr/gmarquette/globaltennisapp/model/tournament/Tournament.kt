@@ -43,10 +43,10 @@ data class Tournament (
     var picturePath: String?,
     // val picture: Bitmap?,
     var prizeMoney: Int?,
-    @Ignore @IgnoredOnParcel val lastWinners: List<LastWinners>? = null,
-    @Ignore @IgnoredOnParcel val seeds: List<Seeds>? = null,
-    @Ignore @IgnoredOnParcel val prizes: List<Prize>? = null,
-    @Ignore @IgnoredOnParcel val points: List<Points>? = null
+    @Ignore @IgnoredOnParcel var lastWinners: List<LastWinners>? = null,
+    @Ignore @IgnoredOnParcel var seeds: List<Seeds>? = null,
+    @Ignore @IgnoredOnParcel var prizes: List<Prize>? = null,
+    @Ignore @IgnoredOnParcel var points: List<Points>? = null
 ) : Parcelable
 {
     constructor(id: Int, name: String, location: String, formattedDate: String, type: TournamentType, overviewUrl: String, website: String, tournamentMonth: Int) : this(
