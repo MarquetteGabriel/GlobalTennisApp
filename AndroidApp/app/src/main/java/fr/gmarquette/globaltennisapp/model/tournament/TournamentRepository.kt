@@ -10,7 +10,7 @@ package fr.gmarquette.globaltennisapp.model.tournament
 
 import androidx.lifecycle.LiveData
 
-class TournamentRepository(private val tournamentDAO: TournamentDAO)
+class TournamentRepository(private val tournamentDAO: TournamentDAO)//  private val pointsDAO: PointsDAO)
 {
     val getTournaments: LiveData<List<Tournament>> = tournamentDAO.getTournaments()
 
@@ -24,21 +24,5 @@ class TournamentRepository(private val tournamentDAO: TournamentDAO)
 
     fun getTournamentByName(name: String): LiveData<Tournament> {
         return tournamentDAO.getTournamentByName(name)
-    }
-
-    fun getLastWinnersOfTournament(tournamentId: String): List<LastWinners> {
-        return tournamentDAO.getLastWinnersOfTournament(tournamentId)
-    }
-
-    fun getSeedsOfTournament(tournamentId: String): List<Seeds> {
-        return tournamentDAO.getSeedsOfTournament(tournamentId)
-    }
-
-    fun getPrizeOfTournament(tournamentId: String): List<Prize> {
-        return tournamentDAO.getPrizeOfTournament(tournamentId)
-    }
-
-    fun getPointsOfTournament(tournamentId: String): List<Points> {
-        return tournamentDAO.getPointsOfTournament(tournamentId)
     }
 }

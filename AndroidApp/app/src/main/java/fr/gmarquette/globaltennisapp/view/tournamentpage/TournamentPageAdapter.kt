@@ -14,8 +14,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.gmarquette.globaltennisapp.R
-import fr.gmarquette.globaltennisapp.model.tournament.LastWinners
-import fr.gmarquette.globaltennisapp.model.tournament.Seeds
+import fr.gmarquette.globaltennisapp.model.tournament.lastwinners.LastWinners
+import fr.gmarquette.globaltennisapp.model.tournament.seeds.Seeds
 
 class TournamentPageAdapter (private val list: List<Any>,
                                     private val clickListener: (Any) -> Unit) : RecyclerView.Adapter<TournamentPageAdapter.ViewHolder>(){

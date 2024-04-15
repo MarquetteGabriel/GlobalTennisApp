@@ -24,25 +24,10 @@ interface TournamentDAO
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateTournament(tournament: Tournament)
 
-    
-
-
     @Query("SELECT * FROM tournaments")
     fun getTournaments(): LiveData<List<Tournament>>
 
     @Query("SELECT * FROM tournaments WHERE name = :name")
     fun getTournamentByName(name: String): LiveData<Tournament>
-
-    @Query("SELECT * FROM last_winners WHERE tournamentId = :tournamentId ORDER BY year DESC")
-    fun getLastWinnersOfTournament(tournamentId: String): List<LastWinners>
-
-    @Query("SELECT * FROM seeds WHERE tournamentId = :tournamentId ORDER BY seed ASC")
-    fun getSeedsOfTournament(tournamentId: String): List<Seeds>
-
-    @Query("SELECT * FROM prizes WHERE tournamentId = :tournamentId ORDER BY prize ASC")
-    fun getPrizeOfTournament(tournamentId: String): List<Prize>
-
-    @Query("SELECT * FROM points WHERE tournamentId = :tournamentId ORDER BY points ASC")
-    fun getPointsOfTournament(tournamentId: String): List<Points>
 
 }

@@ -6,20 +6,20 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.model.tournament
+package fr.gmarquette.globaltennisapp.model.tournament.points
 
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 
-@Entity(tableName = "prizes")
-data class Prize(
+@Entity(tableName = "points")
+data class Points(
     @PrimaryKey(autoGenerate = true) var id: Int,
     val round: String,
-    val prize: Int,
+    val points: Int,
     val tournamentId: Int,
     @Ignore val tournament: Tournament? = null)
 {
-    constructor(round: String, prize: Int, tournamentId: Int) : this(0, round, prize, tournamentId, null)
+    constructor(round: String, points: Int, tournamentId: Int) : this(0, round, points, tournamentId, null)
 }
-

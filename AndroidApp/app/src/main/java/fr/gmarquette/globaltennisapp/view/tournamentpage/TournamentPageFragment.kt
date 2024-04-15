@@ -23,12 +23,12 @@ import fr.gmarquette.globaltennisapp.R
 import fr.gmarquette.globaltennisapp.api.ApiObject
 import fr.gmarquette.globaltennisapp.databinding.FragmentTournamentPageBinding
 import fr.gmarquette.globaltennisapp.model.BitmapUrl
-import fr.gmarquette.globaltennisapp.model.tournament.LastWinners
-import fr.gmarquette.globaltennisapp.model.tournament.Points
-import fr.gmarquette.globaltennisapp.model.tournament.Prize
-import fr.gmarquette.globaltennisapp.model.tournament.Seeds
 import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
+import fr.gmarquette.globaltennisapp.model.tournament.lastwinners.LastWinners
+import fr.gmarquette.globaltennisapp.model.tournament.points.Points
+import fr.gmarquette.globaltennisapp.model.tournament.prize.Prize
+import fr.gmarquette.globaltennisapp.model.tournament.seeds.Seeds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -84,7 +84,7 @@ class TournamentPageFragment: Fragment()
             view.findViewById<View>(R.id.overview_tournament).visibility = View.GONE
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
             view.findViewById<TextView>(R.id.titleRecyclerView).text = "Seeds"
-            recyclerView.adapter = TournamentPageAdapter(listSeeds) {
+            recyclerView.adapter = TournamentPageAdapter(listSeeds.value!!) {
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE
@@ -94,7 +94,7 @@ class TournamentPageFragment: Fragment()
             view.findViewById<View>(R.id.overview_tournament).visibility = View.GONE
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
             view.findViewById<TextView>(R.id.titleRecyclerView).text = "Past Champions"
-            recyclerView.adapter = TournamentPageAdapter(listPastChampions) {
+            recyclerView.adapter = TournamentPageAdapter(listPastChampions.value!!) {
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
             view.findViewById<View>(R.id.draw_tournament).visibility = View.GONE

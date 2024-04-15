@@ -14,6 +14,10 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import fr.gmarquette.globaltennisapp.api.dataclasses.CalendarATP
 import fr.gmarquette.globaltennisapp.model.enums.TournamentType
+import fr.gmarquette.globaltennisapp.model.tournament.lastwinners.LastWinners
+import fr.gmarquette.globaltennisapp.model.tournament.points.Points
+import fr.gmarquette.globaltennisapp.model.tournament.prize.Prize
+import fr.gmarquette.globaltennisapp.model.tournament.seeds.Seeds
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate

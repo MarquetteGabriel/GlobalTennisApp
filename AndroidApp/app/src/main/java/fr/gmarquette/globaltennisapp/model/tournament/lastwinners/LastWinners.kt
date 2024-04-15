@@ -6,11 +6,12 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.model.tournament
+package fr.gmarquette.globaltennisapp.model.tournament.lastwinners
 
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 
 @Entity(tableName = "last_winners")
 data class LastWinners(
