@@ -59,7 +59,7 @@ class LoadingVideoFragment : Fragment() {
 
         videoView.setOnCompletionListener {
             Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP))
-                .navigate(LoadingVideoFragmentDirections.actionLoadingVideoFragmentToScoresFragment())
+                .navigate(LoadingVideoFragmentDirections.actionLoadingVideoFragmentToCalendarFragment())
         }
 
         videoView.start()
