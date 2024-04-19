@@ -23,7 +23,7 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "matches")
 data class Match
 (
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int,
 
     val homePlayerId: Int,
     @Ignore @IgnoredOnParcel val homePlayer: Player? = null,
@@ -48,6 +48,8 @@ data class Match
 
 ) : Parcelable
 {
+
+    constructor(homePlayerId: Int, awayPlayerId: Int, tournamentId: Int, firstToServe: String, status: MatchStatus, startTimestamp: Int, homeSeed: Int, awaySeed: Int, homePoint: String, awayPoint: String) : this(0, homePlayerId, null, awayPlayerId, null, tournamentId, null, firstToServe, status, startTimestamp, homeSeed, awaySeed, homePoint, awayPoint, null)
 
     fun getResult(): String
     {

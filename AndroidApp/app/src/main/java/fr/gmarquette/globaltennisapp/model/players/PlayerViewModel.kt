@@ -13,8 +13,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import fr.gmarquette.globaltennisapp.model.ATPDatabase
+import fr.gmarquette.globaltennisapp.model.players.injuries.Injuries
+import fr.gmarquette.globaltennisapp.model.players.injuries.InjuriesRepository
 import fr.gmarquette.globaltennisapp.model.players.rank.Rank
-import fr.gmarquette.globaltennisapp.model.ranks.rank.RankRepository
+import fr.gmarquette.globaltennisapp.model.players.rank.RankRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -22,14 +24,14 @@ class PlayerViewModel(application: Application): AndroidViewModel(application) {
 
     private val getPlayers: LiveData<List<Player>>
     private val playerRepository: PlayerRepository
+    private val injuriesRepository: InjuriesRepository
     private val rankRepository: RankRepository
 
     init {
         val database = ATPDatabase.getDatabase(application)
-        val playerDAO = database.playerDAO()
-        val rankDAO = database.rankDAO()
-        playerRepository = PlayerRepository(playerDAO)
-        rankRepository = RankRepository(rankDAO)
+        playerRepository = PlayerRepository(database.playerDAO())
+        injuriesRepository = InjuriesRepository(database.injuriesDAO())
+        rankRepository = RankRepository(database.rankDAO())
         getPlayers = playerRepository.getPlayers
     }
 
@@ -42,6 +44,24 @@ class PlayerViewModel(application: Application): AndroidViewModel(application) {
     fun updatePlayer(player: Player) {
         viewModelScope.launch(Dispatchers.IO) {
             playerRepository.updatePlayer(player)
+        }
+    }
+
+    fun addInjuries(injuries: Injuries) {
+        viewModelScope.launch(Dispatchers.IO) {
+            injuriesRepository.addInjuries(injuries)
+        }
+    }
+
+    fun addAllInjuries(injuries: List<Injuries>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            injuriesRepository.addAllInjuries(injuries)
+        }
+    }
+
+    fun updateInjuries(injuries: Injuries) {
+        viewModelScope.launch(Dispatchers.IO) {
+            injuriesRepository.updateInjuries(injuries)
         }
     }
 
@@ -82,6 +102,10 @@ class PlayerViewModel(application: Application): AndroidViewModel(application) {
         return getPlayers
     }
     
+    fun getInjuriesOfPlayer(playerId: String): LiveData<List<Injuries>> {
+        return injuriesRepository.getInjuriesOfPlayer(playerId)
+    }
+
     fun getRankOfPlayer(playerId: String): LiveData<List<Rank>> {
         return rankRepository.getRankOfPlayer(playerId)
     }

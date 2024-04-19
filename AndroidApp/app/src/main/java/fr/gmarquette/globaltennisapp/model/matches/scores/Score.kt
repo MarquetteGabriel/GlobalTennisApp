@@ -15,7 +15,7 @@ import fr.gmarquette.globaltennisapp.model.matches.Match
 
 @Entity(tableName = "scores")
 data class Score(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int,
     val homeOne: String,
     val homeTwo: String,
     val homeThree: String,

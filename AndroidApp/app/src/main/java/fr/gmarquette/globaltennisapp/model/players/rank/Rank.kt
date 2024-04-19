@@ -15,7 +15,7 @@ import fr.gmarquette.globaltennisapp.model.players.Player
 
 @Entity(tableName = "rank")
 data class Rank(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int,
     var currentRank: Int,
     var previousRank: Int,
     var points: Int,

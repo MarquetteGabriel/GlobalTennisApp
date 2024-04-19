@@ -26,10 +26,8 @@ class MatchViewModel(application: Application): AndroidViewModel(application) {
 
     init {
         val database = ATPDatabase.getDatabase(application)
-        val matchDAO = database.matchDAO()
-        val scoreDAO = database.scoreDAO()
-        matchRepository = MatchRepository(matchDAO)
-        scoreRepository = ScoreRepository(scoreDAO)
+        matchRepository = MatchRepository(database.matchDAO())
+        scoreRepository = ScoreRepository(database.scoreDAO())
         getMatchs = matchRepository.getMatchs
     }
 

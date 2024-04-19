@@ -18,6 +18,8 @@ import fr.gmarquette.globaltennisapp.model.matches.scores.Score
 import fr.gmarquette.globaltennisapp.model.matches.scores.ScoreDAO
 import fr.gmarquette.globaltennisapp.model.players.Player
 import fr.gmarquette.globaltennisapp.model.players.PlayerDAO
+import fr.gmarquette.globaltennisapp.model.players.injuries.Injuries
+import fr.gmarquette.globaltennisapp.model.players.injuries.InjuriesDAO
 import fr.gmarquette.globaltennisapp.model.players.rank.Rank
 import fr.gmarquette.globaltennisapp.model.players.rank.RankDAO
 import fr.gmarquette.globaltennisapp.model.tournament.Tournament
@@ -32,7 +34,7 @@ import fr.gmarquette.globaltennisapp.model.tournament.seeds.Seeds
 import fr.gmarquette.globaltennisapp.model.tournament.seeds.SeedsDAO
 
 @Database(
-    entities = [Tournament::class, Seeds::class, Prize::class, Points::class, LastWinners::class, Player::class, Rank::class, Match::class, Score::class],
+    entities = [Tournament::class, Seeds::class, Prize::class, Points::class, LastWinners::class, Player::class, Injuries::class, Rank::class, Match::class, Score::class],
     version = 1, exportSchema = true)
 abstract class ATPDatabase : RoomDatabase() {
 
@@ -43,6 +45,7 @@ abstract class ATPDatabase : RoomDatabase() {
     abstract fun lastWinnersDAO(): LastWinnersDAO
     abstract fun playerDAO(): PlayerDAO
     abstract fun rankDAO(): RankDAO
+    abstract fun injuriesDAO(): InjuriesDAO
     abstract fun matchDAO(): MatchDAO
     abstract fun scoreDAO(): ScoreDAO
 

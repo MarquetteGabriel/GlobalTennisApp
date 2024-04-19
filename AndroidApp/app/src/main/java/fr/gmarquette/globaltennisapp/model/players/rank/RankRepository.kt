@@ -6,11 +6,9 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.model.ranks.rank
+package fr.gmarquette.globaltennisapp.model.players.rank
 
 import androidx.lifecycle.LiveData
-import fr.gmarquette.globaltennisapp.model.players.rank.Rank
-import fr.gmarquette.globaltennisapp.model.players.rank.RankDAO
 
 class RankRepository(private val rankDAO: RankDAO)
 {

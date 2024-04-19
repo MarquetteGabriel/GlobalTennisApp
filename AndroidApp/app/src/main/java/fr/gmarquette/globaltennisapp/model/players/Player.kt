@@ -8,13 +8,14 @@
 
 package fr.gmarquette.globaltennisapp.model.players
 
-import android.graphics.Bitmap
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import fr.gmarquette.globaltennisapp.model.enums.Category
 import fr.gmarquette.globaltennisapp.model.enums.Country
+import fr.gmarquette.globaltennisapp.model.matches.Match
+import fr.gmarquette.globaltennisapp.model.players.injuries.Injuries
 import fr.gmarquette.globaltennisapp.model.players.rank.Rank
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
@@ -22,6 +23,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "players")
 data class Player (
+    @IgnoredOnParcel @PrimaryKey(autoGenerate = true) var id: Int = 0,
     var firstName: String,
     var lastName: String,
     var age: Int,
@@ -31,23 +33,19 @@ data class Player (
     var height : String,
     var weight : String,
     var coach: String,
-    val turnedPro: Int,
-    val singlesTitles: List<String>,
-    val doublesTitles: List<String>,
-    val plays: String,
-    val backhand: String,
-    val injuries: List<String>,
+    var turnedPro: Int,
+    @Ignore val singlesTitles: List<String>,
+    @Ignore val doublesTitles: List<String>,
+    var plays: String,
+    var backhand: String,
+    @Ignore @IgnoredOnParcel val injuries: List<Injuries>? = null,
     var category: Category,
-    @Ignore @IgnoredOnParcel val rank: Rank,
-    // val results: List<Matches>, Not Available Yet
+    var picture: String,
+    @Ignore @IgnoredOnParcel val rank: Rank? = null,
+    @Ignore @IgnoredOnParcel val results: List<Match>? = null
 ) : Parcelable
 {
-    @IgnoredOnParcel @PrimaryKey(autoGenerate = true) var id: Int = 0
-    @IgnoredOnParcel var picture: Bitmap? = null
-    @IgnoredOnParcel private var fullName: String = ""
+    @Ignore @IgnoredOnParcel private val fullName: String = "$firstName $lastName"
 
-
-    init {
-        fullName = "$firstName $lastName"
-    }
+    constructor(firstName: String, lastName: String, age: Int, birthDate: String, birthPlace: String) : this(0, firstName, lastName, age, birthDate, birthPlace, Country.FRANCE, "", "", "", 0, emptyList(), emptyList(), "", "", null, Category.ATP, "", null, null)
 }

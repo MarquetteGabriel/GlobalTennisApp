@@ -35,10 +35,8 @@ class TournamentViewModel(application: Application): AndroidViewModel(applicatio
 
     init {
         val database = ATPDatabase.getDatabase(application)
-        val tournamentDAO = database.tournamentDAO()
-        val lastWinnersDAO = database.lastWinnersDAO()
-        tournamentRepository = TournamentRepository(tournamentDAO)
-        lastWinnersRepository = LastWinnersRepository(lastWinnersDAO)
+        tournamentRepository = TournamentRepository(database.tournamentDAO())
+        lastWinnersRepository = LastWinnersRepository(database.lastWinnersDAO())
         seedsRepository = SeedsRepository(database.seedsDAO())
         prizeRepository = PrizeRepository(database.prizeDAO())
         pointsRepository = PointsRepository(database.pointsDAO())
