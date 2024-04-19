@@ -12,6 +12,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import fr.gmarquette.globaltennisapp.model.matches.Match
+import fr.gmarquette.globaltennisapp.model.matches.MatchDAO
+import fr.gmarquette.globaltennisapp.model.matches.scores.Score
+import fr.gmarquette.globaltennisapp.model.matches.scores.ScoreDAO
+import fr.gmarquette.globaltennisapp.model.players.Player
+import fr.gmarquette.globaltennisapp.model.players.PlayerDAO
+import fr.gmarquette.globaltennisapp.model.players.rank.Rank
+import fr.gmarquette.globaltennisapp.model.players.rank.RankDAO
 import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentDAO
 import fr.gmarquette.globaltennisapp.model.tournament.lastwinners.LastWinners
@@ -24,7 +32,7 @@ import fr.gmarquette.globaltennisapp.model.tournament.seeds.Seeds
 import fr.gmarquette.globaltennisapp.model.tournament.seeds.SeedsDAO
 
 @Database(
-    entities = [Tournament::class, Seeds::class, Prize::class, Points::class, LastWinners::class],
+    entities = [Tournament::class, Seeds::class, Prize::class, Points::class, LastWinners::class, Player::class, Rank::class, Match::class, Score::class],
     version = 1, exportSchema = true)
 abstract class ATPDatabase : RoomDatabase() {
 
@@ -33,6 +41,10 @@ abstract class ATPDatabase : RoomDatabase() {
     abstract fun prizeDAO(): PrizeDAO
     abstract fun pointsDAO(): PointsDAO
     abstract fun lastWinnersDAO(): LastWinnersDAO
+    abstract fun playerDAO(): PlayerDAO
+    abstract fun rankDAO(): RankDAO
+    abstract fun matchDAO(): MatchDAO
+    abstract fun scoreDAO(): ScoreDAO
 
     companion object {
         @Volatile

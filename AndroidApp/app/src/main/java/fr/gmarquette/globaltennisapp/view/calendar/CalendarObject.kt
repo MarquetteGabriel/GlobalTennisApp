@@ -9,6 +9,7 @@
 package fr.gmarquette.globaltennisapp.view.calendar
 
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
+import fr.gmarquette.globaltennisapp.model.tournament.lastwinners.LastWinners
 
 object CalendarObject {
 
@@ -24,7 +25,6 @@ object CalendarObject {
                         compareBy({ it.tournamentMonth },
                                 { it.date?.startDay?.toInt() })
                 )
-
                 for (tournament in tournamentList)
                 {
                         val headerExist = itemList.any { it is CalendarItems.Header && reverseMonth(it.month) == tournament.tournamentMonth }
@@ -35,7 +35,7 @@ object CalendarObject {
                         }
 
                         val pastChamps = if(!tournament.lastWinners.isNullOrEmpty()) {
-                                "🏆 " + tournament.lastWinners.first().year.toString() + " - " + tournament.lastWinners.first().name
+                                "🏆 " + (tournament.lastWinners as List<LastWinners>).first().year.toString() + " - " + (tournament.lastWinners as List<LastWinners>).first().name
                         } else {
                                 ""
                         }

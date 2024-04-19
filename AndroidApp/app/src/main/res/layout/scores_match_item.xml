@@ -41,7 +41,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:textColor="@color/default_text"
                         android:textSize="14sp"
-                        android:text="@{match.component1().homePlayer}"
+                        android:text="@{match.component1().homePlayer.firstName + match.component1().homePlayer.lastName}"
 
                         android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,7 +95,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:textColor="@color/default_text"
                         android:textSize="14sp"
-                        android:text="@{match.component1().awayPlayer}"
+                        android:text="@{match.component1().awayPlayer.firstName + match.component1().awayPlayer.lastName}"
 
                         android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"

@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.gmarquette.globaltennisapp.R
 import fr.gmarquette.globaltennisapp.api.ApiObject
 import fr.gmarquette.globaltennisapp.databinding.FragmentScoresBinding
-import fr.gmarquette.globaltennisapp.model.matches.Matches
+import fr.gmarquette.globaltennisapp.model.matches.Match
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ class ScoresFragment : Fragment() {
 
     private lateinit var binding: FragmentScoresBinding
     private val mainScope = CoroutineScope(Dispatchers.Main)
-    private val matchList: MutableList<Matches> = mutableListOf()
+    private val matchList: MutableList<Match> = mutableListOf()
     private lateinit var adapterList: ScoresAdapter
 
     override fun onCreateView(
@@ -48,7 +48,7 @@ class ScoresFragment : Fragment() {
             // Navigate to tournament PAge
         })
 
-        val matchesList = emptyList<Matches>()
+        val matchesList = emptyList<Match>()
         adapterList.updateList(matchesList)
 
         binding.matchRecyclerView.apply {

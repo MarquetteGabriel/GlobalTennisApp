@@ -10,7 +10,7 @@ package fr.gmarquette.globaltennisapp.model.tournament
 
 import androidx.lifecycle.LiveData
 
-class TournamentRepository(private val tournamentDAO: TournamentDAO)//  private val pointsDAO: PointsDAO)
+class TournamentRepository(private val tournamentDAO: TournamentDAO)
 {
     val getTournaments: LiveData<List<Tournament>> = tournamentDAO.getTournaments()
 

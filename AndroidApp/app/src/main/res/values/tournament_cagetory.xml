@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~
+  ~ @brief Copyright (c) 2024 Gabriel Marquette
+  ~
+  ~ Copyright (c) 2024 Gabriel Marquette. All rights reserved.
+  ~
+  -->
+
+<resources>
+
+    <string name="olympics">Olympics Games</string>
+    <string name="davis_cup">Davis Cup</string>
+    <string name="united_cup">United Cup</string>
+    <string name="laver_cup">Laver Cup</string>
+
+    <string name="RG">Rolland Garros</string>
+    <string name="WIMBLEDON">Wimbledon</string>
+    <string name="AO">Australian Open</string>
+    <string name="US_open">US Open</string>
+
+    <string name="atp_finals">ATP Finals</string>
+    <string name="atp_finals_next_gen">ATP Finals Next Gen</string>
+    <string name="atp_grand_slam">ATP Grand Slam</string>
+    <string name="atp_1000">ATP 1000</string>
+    <string name="atp_500">ATP 500</string>
+    <string name="atp_250">ATP 250</string>
+
+    <string name="wta_finals">WTA Finals</string>
+    <string name="wta_grand_slam">WTA Grand Slam</string>
+    <string name="wta_1000">WTA 1000</string>
+    <string name="wta_500">WTA 500</string>
+    <string name="wta_250">WTA 250</string>
+    <string name="wta_125">WTA 125</string>
+
+
+</resources>

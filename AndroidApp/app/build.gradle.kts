@@ -48,6 +48,7 @@ chaquopy{
     defaultConfig {
         version = "3.12"
         buildPython("C:\\Windows\\py.exe")
+        buildPython("/usr/bin/python3")
 
         pip {
             install("-r", "${project.rootDir}/app/src/main/assets/api/requirements.txt")
