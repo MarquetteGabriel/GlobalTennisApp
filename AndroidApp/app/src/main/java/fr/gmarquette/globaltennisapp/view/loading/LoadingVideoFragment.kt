@@ -67,7 +67,7 @@ class LoadingVideoFragment : Fragment() {
         return view
     }
 
-    private fun getCalendarATP(it: List<Tournament>){
+    fun getCalendarATP(it: List<Tournament>){
         mainScope.launch {
             try {
                 delay(DELAY_CALENDAR)
@@ -111,7 +111,7 @@ class LoadingVideoFragment : Fragment() {
     }
 
 
-    private fun convertTypeToCategory(type: String, name: String): TournamentType
+    fun convertTypeToCategory(type: String, name: String): TournamentType
     {
         return if (type.contains("250")) TournamentType.ATP_250
         else if (type.contains("500")) TournamentType.ATP_500

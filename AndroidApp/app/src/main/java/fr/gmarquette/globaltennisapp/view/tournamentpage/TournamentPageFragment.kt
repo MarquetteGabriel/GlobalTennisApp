@@ -111,7 +111,7 @@ class TournamentPageFragment: Fragment()
         return view
     }
 
-    private fun getTournamentInformation(tournament: Tournament)
+    fun getTournamentInformation(tournament: Tournament)
     {
         mainScope.launch {
             try {

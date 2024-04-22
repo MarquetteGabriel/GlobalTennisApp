@@ -104,7 +104,7 @@ data class Tournament (
         }
     }
 
-    private fun setTournamentMonth(startMonth: String, endMonth: String) : Int
+    fun setTournamentMonth(startMonth: String, endMonth: String) : Int
     {
         return if (startMonth.contains("December") && endMonth.contains("January")) 0
         else if(startMonth.contains("January")) 1
@@ -121,7 +121,7 @@ data class Tournament (
         else 12
     }
 
-    private fun convertFormattedDate(date: String): TournamentDate
+    fun convertFormattedDate(date: String): TournamentDate
     {
         val dateFormatter = DateTimeFormatter.ofPattern("d MMMM, yyyy", Locale.ENGLISH)
         val dates = date.split(" - ")

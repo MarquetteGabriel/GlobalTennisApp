@@ -1,3 +1,11 @@
+/*
+ *
+ * @brief Copyright (c) 2024 Gabriel Marquette
+ *
+ * Copyright (c) 2024 Gabriel Marquette. All rights reserved.
+ *
+ */
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -73,6 +81,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     testImplementation(libs.junit)
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 

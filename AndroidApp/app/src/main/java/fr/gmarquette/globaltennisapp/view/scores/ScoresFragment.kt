@@ -59,7 +59,7 @@ class ScoresFragment : Fragment() {
         return view
     }
 
-    private fun getScores()
+    fun getScores()
     {
         mainScope.launch {
             try {
