@@ -30,22 +30,25 @@ def getDraws(tournament, tournamentId):
             winner_div = item.find('div', class_='winner')
             is_winner = True if winner_div else False
 
-            if(player_name not in player_names or player_name == 'Bye') and player_name != "":
+            if(player_name not in player_names or player_name == 'Bye' or player_name == 'Qualifier') and player_name != "":
                 player_names.append(player_name)
 
-        round = len(player_names)
+        round = len(player_names) - 1
         id = 1
 
         draw_matches = []
         header = {"round": round}
         draw_matches.append(header)
 
-        for i in range(0, len(player_names), 2):
+        print(len(player_names))
+        print(round)
+        for i in range(0, int(round), 2):
             draw_match = {
                 "home_player": player_names[i],
                 "away_player": player_names[i+1],
                 "draw_match_id": id,
             }
+            print(player_names[i], player_names[i+1])
 
             draw_matches.append(draw_match)
             id += 1
