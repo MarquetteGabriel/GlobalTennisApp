@@ -16,11 +16,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import fr.gmarquette.globaltennisapp.api.ApiService
 import fr.gmarquette.globaltennisapp.databinding.ActivityAtpBinding
 import fr.gmarquette.globaltennisapp.view.calendar.CalendarFragmentDirections
+import fr.gmarquette.globaltennisapp.view.favorites.FavoritesFragmentDirections
 import fr.gmarquette.globaltennisapp.view.player.PlayerFragmentDirections
 import fr.gmarquette.globaltennisapp.view.rankings.LeaderboardFragmentDirections
 import fr.gmarquette.globaltennisapp.view.scores.ScoresFragmentDirections
@@ -49,9 +49,8 @@ class ATPActivity : AppCompatActivity() {
         field.set(null, 100 * 1024 * 1024)
 
         // Start of Api Worker
-        val apiWorkRequest = OneTimeWorkRequestBuilder<ApiService>()
-            .build()
-        WorkManager.getInstance(this).enqueue(apiWorkRequest)
+        // val apiWorkRequest = OneTimeWorkRequestBuilder<ApiService>().build()
+        // WorkManager.getInstance(this).enqueue(apiWorkRequest)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navComponentATP) as NavHostFragment
         navController = navHostFragment.navController
@@ -73,7 +72,7 @@ class ATPActivity : AppCompatActivity() {
                     when (navController.currentDestination?.id) {
                         R.id.leaderboardFragment -> navController.navigate(LeaderboardFragmentDirections.actionLeaderboardFragmentToScoresFragment())
                         R.id.calendarFragment -> navController.navigate(CalendarFragmentDirections.actionCalendarFragmentToScoresFragment())
-                        // R.id.favoritesFragment -> navController.navigate(R.id.action_favoritesFragment_to_scoresFragment)
+                        R.id.favoritesFragment -> navController.navigate(FavoritesFragmentDirections.actionFavoritesFragmentToScoresFragment())
 
                         R.id.playerFragment -> navController.navigate(PlayerFragmentDirections.actionPlayerFragmentToScoresFragment())
                         R.id.tournamentPageFragment -> navController.navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToScoresFragment())
@@ -84,7 +83,7 @@ class ATPActivity : AppCompatActivity() {
                     when (navController.currentDestination?.id) {
                         R.id.leaderboardFragment -> navController.navigate(LeaderboardFragmentDirections.actionLeaderboardFragmentToCalendarFragment())
                         R.id.scoresFragment -> navController.navigate(ScoresFragmentDirections.actionScoresFragmentToCalendarFragment())
-                        // R.id.favoritesFragment -> navController.navigate(R.id.action_favoritesFragment_to_calendarFragment)
+                        R.id.favoritesFragment -> navController.navigate(FavoritesFragmentDirections.actionFavoritesFragmentToCalendarFragment())
 
                         R.id.tournamentPageFragment -> navController.navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToCalendarFragment())
                         // R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_calendarFragment)
@@ -95,7 +94,7 @@ class ATPActivity : AppCompatActivity() {
                     when (navController.currentDestination?.id) {
                         R.id.scoresFragment -> navController.navigate(ScoresFragmentDirections.actionScoresFragmentToLeaderboardFragment())
                         R.id.calendarFragment -> navController.navigate(CalendarFragmentDirections.actionCalendarFragmentToLeaderboardFragment())
-                        //R.id.favoritesFragment -> navController.navigate(R.id.action_favoritesFragment_to_leaderboardFragment)
+                        R.id.favoritesFragment -> navController.navigate(FavoritesFragmentDirections.actionFavoritesFragmentToLeaderboardFragment())
 
                         R.id.tournamentPageFragment -> navController.navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToLeaderboardFragment())
                         //R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_leaderboardFragment)
@@ -103,18 +102,15 @@ class ATPActivity : AppCompatActivity() {
                     }
                 }
                 R.id.favMenu -> {
-                    /*
                     when (navController.currentDestination?.id) {
-                        R.id.leaderboardFragment -> navController.navigate(R.id.action_leaderboardFragment_to_favoritesFragment)
-                        R.id.scoresFragment -> navController.navigate(R.id.action_scoresFragment_to_favoritesFragment)
-                        R.id.calendarFragment -> navController.navigate(R.id.action_calendarFragment_to_favoritesFragment)
+                        R.id.leaderboardFragment -> navController.navigate(LeaderboardFragmentDirections.actionLeaderboardFragmentToFavoritesFragment())
+                        R.id.scoresFragment -> navController.navigate(ScoresFragmentDirections.actionScoresFragmentToFavoritesFragment())
+                        R.id.calendarFragment -> navController.navigate(CalendarFragmentDirections.actionCalendarFragmentToFavoritesFragment())
 
-                        R.id.playerProfileFragment -> navController.navigate(R.id.action_playerProfileFragment_to_favoritesFragment)
-                        R.id.tournamentPageFragment -> navController.navigate(R.id.action_tournamentProfilFragment_to_favoritesFragment)
-                        R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_favoritesFragment)
+                        R.id.playerFragment -> navController.navigate(PlayerFragmentDirections.actionPlayerFragmentToFavoritesFragment())
+                        R.id.tournamentPageFragment -> navController.navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToFavoritesFragment())
+                        // R.id.matchFragment -> navController.navigate(R.id.action_matchFragment_to_favoritesFragment)
                     }
-                     */
-
                 }
             }
             true

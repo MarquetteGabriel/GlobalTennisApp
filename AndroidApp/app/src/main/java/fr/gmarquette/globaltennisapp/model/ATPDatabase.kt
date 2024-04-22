@@ -34,7 +34,8 @@ import fr.gmarquette.globaltennisapp.model.tournament.seeds.Seeds
 import fr.gmarquette.globaltennisapp.model.tournament.seeds.SeedsDAO
 
 @Database(
-    entities = [Tournament::class, Seeds::class, Prize::class, Points::class, LastWinners::class, Player::class, Injuries::class, Rank::class, Match::class, Score::class],
+    entities = [Tournament::class, Seeds::class, Prize::class, Points::class, LastWinners::class,
+        Player::class, Injuries::class, Rank::class, Match::class, Score::class],
     version = 1, exportSchema = true)
 abstract class ATPDatabase : RoomDatabase() {
 
