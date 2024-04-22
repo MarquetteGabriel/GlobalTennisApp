@@ -5,23 +5,22 @@ url = "https://api.sofascore.com/api/v1/sport/tennis/events/live"
 def getLiveScore():
     payload = ""
     headers = {
-        "accept": "*/*",
-        "accept-language": "fr-FR,fr;q=0.7",
-        "cache-control": "max-age=0",
-        "origin": "https://www.sofascore.com",
-        "referer": "https://www.sofascore.com/",
-        "sec-ch-ua-mobile": "?0",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "sec-gpc": "1",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+        "Accept": "*/*",
+        "Accept-Language": "fr-FR,fr;q=0.7",
+        "Cache-Control": "max-age=0",
+        "Origin": "https://www.sofascore.com",
+        "Referer": "https://www.sofascore.com/",
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-site",
+        "Sec-Gpc": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
     }
 
-    response = requests.request("GET", url, data=payload, headers=headers)
+    response = requests.get(url, headers=headers)
 
-    if(response.status_code == 200) : 
-        
+    if response.status_code == 200:
         data = json.loads(response.text)
 
         matches_info = []

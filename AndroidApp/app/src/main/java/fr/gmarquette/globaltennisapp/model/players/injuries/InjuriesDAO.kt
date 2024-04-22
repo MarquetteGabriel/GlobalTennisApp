@@ -6,7 +6,7 @@
  *
  */
 
-package fr.gmarquette.globaltennisapp.model.players.rank
+package fr.gmarquette.globaltennisapp.model.players.injuries
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -16,17 +16,17 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface RankDAO
+interface InjuriesDAO
 {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addRank(rank: Rank)
+    suspend fun addInjuries(injuries: Injuries)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addAllRank(rank: List<Rank>)
+    suspend fun addAllInjuries(injuries: List<Injuries>)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateRank(rank: Rank)
+    suspend fun updateInjuries(injuries: Injuries)
 
-    @Query("SELECT * FROM rank WHERE playerId = :playerId ORDER BY currentRank DESC")
-    fun getRankOfPlayer(playerId: String): LiveData<List<Rank>>
+    @Query("SELECT * FROM injuries WHERE playerId = :playerId ORDER BY date DESC")
+    fun getInjuriesOfPlayer(playerId: String): LiveData<List<Injuries>>
 }

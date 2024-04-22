@@ -8,6 +8,8 @@ from Leaderboard.race_leaderboard import getLeaderboardATPRace
 from LiveScore.livedata import getLiveScore
 from SchedulesAndResults.schedule import getResults
 from Tournaments.calendarATP import getCalendarATP
+from Tournaments.draws import getDraws
+from Players.players import getPlayerATP, getPlayerStats
 
 app = Flask(__name__)
 
@@ -214,6 +216,11 @@ def atp_tournaments(tournament_id):
     atp_tournaments = json.loads(tournamentInfo.getATPTournamentInfo(tournament_id))
     return jsonify(atp_tournaments)
 
+@app.route("/api/atp/<tournament>/<tournament_id>/draws")
+def atp_tournaments_draws(tournament, tournament_id):
+    atp_tournaments = json.loads(getDraws(tournament, tournament_id))
+    return jsonify(atp_tournaments)
+
 @app.route("/api/atp/<tournament_name>/<year>/results")
 def atp_tournaments_results(tournament_name, year):
     atp_tournaments = json.loads(tournamentInfo.getMatchByYearByTournamentForATPSingles(tournament_name, year))
@@ -233,6 +240,18 @@ def atp_tournaments_futures_results(tournament_name, year):
 def atp_tournaments_doubles_results(tournament_name, year):
     atp_tournaments = json.loads(tournamentInfo.getMatchByYearByTournamentForATPDoubles(tournament_name, year))
     return jsonify(atp_tournaments)
+
+""" Players """
+
+@app.route("/api/atp/players/<player_id>")
+def atp_players(player_id):
+    player = json.loads(getPlayerATP(player_id))
+    return jsonify(player)
+
+@app.route("/api/atp/players/<player_id>/stats/<year>/<surface>")
+def atp_players_stats(player_id, year, surface):
+    player = json.loads(getPlayerStats(player_id, year, surface))
+    return jsonify(player)
 
 """ Live Score """
 
