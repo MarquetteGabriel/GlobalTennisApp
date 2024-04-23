@@ -14,5 +14,6 @@ class TournamentPageFragmentTest {
 
     @Test
     fun getTournamentInformation() {
+
     }
 }

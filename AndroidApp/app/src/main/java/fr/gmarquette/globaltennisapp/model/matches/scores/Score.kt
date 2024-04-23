@@ -42,6 +42,15 @@ data class Score(
     @Ignore val matches: Match? = null,
 )
 {
+    constructor(homeOne: String, homeTwo: String, homeThree: String,
+        awayOne: String, awayTwo: String, awayThree: String,
+        homeTieBreakOne: String, homeTieBreakTwo: String, homeTieBreakThree: String,
+        awayTieBreakOne: String, awayTieBreakTwo: String, awayTieBreakThree: String,
+        matchId: Int) : this (0, homeOne, homeTwo, homeThree, "", "",
+        awayOne, awayTwo, awayThree, "", "",
+        homeTieBreakOne, homeTieBreakTwo, homeTieBreakThree, "", "",
+        awayTieBreakOne, awayTieBreakTwo, awayTieBreakThree, "", "", matchId, null)
+
     constructor(homeOne: String, homeTwo: String, homeThree: String, homeFour: String, homeFive: String,
         awayOne: String, awayTwo: String, awayThree: String, awayFour: String, awayFive: String,
         homeTieBreakOne: String, homeTieBreakTwo: String, homeTieBreakThree: String, homeTieBreakFour: String, homeTieBreakFive: String,
