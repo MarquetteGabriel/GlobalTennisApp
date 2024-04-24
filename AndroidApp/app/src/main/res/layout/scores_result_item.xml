@@ -49,7 +49,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().homeScores.one}"
+                    android:text="@{match.component1().score.component2()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -65,7 +65,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().homeTiebreakScores.one}"
+                    android:text="@{match.component1().score.component12()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -91,7 +91,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayScores.one}"
+                    android:text="@{match.component1().score.component7()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -107,7 +107,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayTiebreakScores.one}"
+                    android:text="@{match.component1().score.component17()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -146,7 +146,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().homeScores.two}"
+                    android:text="@{match.component1().score.component3()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -165,7 +165,7 @@
                     android:textColor="@color/default_text"
                     android:textSize="11sp"
 
-                    android:text="@{match.component1().homeTiebreakScores.two}"
+                    android:text="@{match.component1().score.component13()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/set2player1Text"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -188,7 +188,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayScores.two}"
+                    android:text="@{match.component1().score.component8()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -204,7 +204,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayTiebreakScores.two}"
+                    android:text="@{match.component1().score.component18()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -243,7 +243,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().homeScores.three}"
+                    android:text="@{match.component1().score.component4()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -262,7 +262,7 @@
                     android:textColor="@color/default_text"
                     android:textSize="11sp"
 
-                    android:text="@{match.component1().homeTiebreakScores.three}"
+                    android:text="@{match.component1().score.component14()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/set3player1Text"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -285,7 +285,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayScores.three}"
+                    android:text="@{match.component1().score.component9()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -301,7 +301,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayTiebreakScores.three}"
+                    android:text="@{match.component1().score.component19()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -339,7 +339,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().homeScores.four}"
+                    android:text="@{match.component1().score.component5()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -358,7 +358,7 @@
                     android:textColor="@color/default_text"
                     android:textSize="11sp"
 
-                    android:text="@{match.component1().homeTiebreakScores.four}"
+                    android:text="@{match.component1().score.component15()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/set4player1Text"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -381,7 +381,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayScores.four}"
+                    android:text="@{match.component1().score.component10()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -397,7 +397,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayTiebreakScores.four}"
+                    android:text="@{match.component1().score.component20()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"
@@ -435,7 +435,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().homeScores.five}"
+                    android:text="@{match.component1().score.component6()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -454,7 +454,7 @@
                     android:textColor="@color/default_text"
                     android:textSize="11sp"
 
-                    android:text="@{match.component1().homeTiebreakScores.five}"
+                    android:text="@{match.component1().score.component16()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/set5player1Text"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -477,7 +477,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayScores.five}"
+                    android:text="@{match.component1().score.component11()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="14sp"
@@ -493,7 +493,7 @@
                     android:fontFamily="@font/roboto_bold"
 
                     android:gravity="center"
-                    android:text="@{match.component1().awayTiebreakScores.five}"
+                    android:text="@{match.component1().score.component21()}"
                     android:textColor="@color/default_text"
 
                     android:textSize="11sp"

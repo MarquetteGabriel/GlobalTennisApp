@@ -16,7 +16,7 @@ import retrofit2.http.Path
 interface ApiInterfaceTournamentPage
 {
 
-    @GET("atp/{tournamentId}")
+    @GET("atp/tournaments/{tournamentId}")
     suspend fun getTournamentInfo(@Path("tournamentId") tournamentId: String): Response<List<TournamentInfo>>
 
 }

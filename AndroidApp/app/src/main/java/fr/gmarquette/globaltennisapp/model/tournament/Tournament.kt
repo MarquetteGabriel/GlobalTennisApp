@@ -50,7 +50,7 @@ data class Tournament (
 ) : Parcelable
 {
     constructor(id: Int, name: String, location: String, formattedDate: String, type: TournamentType, overviewUrl: String, website: String, tournamentMonth: Int) : this(
-        id, name, location, formattedDate, type, overviewUrl, website, 0, null, null, null, null, null, null, null, null, null)
+        id, name, location, formattedDate, type, overviewUrl, website, tournamentMonth, null, null, null, null, null, null, null, null, null)
     constructor(calendar: CalendarATP): this(
         calendar.Id.toInt(),
         calendar.Name,

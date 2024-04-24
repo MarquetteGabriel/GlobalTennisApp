@@ -14,6 +14,6 @@ import retrofit2.http.GET
 
 interface ApiInterfaceLiveScore
 {
-    @GET("live-score")
+    @GET("/atp/live-score")
     suspend fun getLiveScore(): Response<List<Match>>
 }

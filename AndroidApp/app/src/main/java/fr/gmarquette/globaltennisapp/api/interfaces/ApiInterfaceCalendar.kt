@@ -15,7 +15,7 @@ import retrofit2.http.GET
 interface ApiInterfaceCalendar
 {
 
-    @GET("atp/tournaments")
+    @GET("atp/tournaments/calendar")
     suspend fun getCalendarATP(): Response<List<CalendarATP>>
 
 
