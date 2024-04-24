@@ -27,4 +27,8 @@ class PointsRepository(private val pointsDAO: PointsDAO)
     fun getPointsOfTournament(tournamentId: String): LiveData<List<Points>> {
         return pointsDAO.getPointsOfTournament(tournamentId)
     }
+
+    fun getPointsOfRound(tournamentId: String, round: Int): LiveData<List<Points>> {
+        return pointsDAO.getPointsOfRound(tournamentId, round)
+    }
 }

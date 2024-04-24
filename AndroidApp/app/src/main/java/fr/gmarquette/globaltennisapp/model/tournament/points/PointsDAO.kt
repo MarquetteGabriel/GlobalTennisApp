@@ -29,4 +29,8 @@ interface PointsDAO
 
     @Query("SELECT * FROM points WHERE tournamentId = :tournamentId ORDER BY points DESC")
     fun getPointsOfTournament(tournamentId: String): LiveData<List<Points>>
+
+    @Query("SELECT * FROM points WHERE tournamentId = :tournamentId AND round = :round")
+    fun getPointsOfRound(tournamentId: String, round: Int): LiveData<List<Points>>
+
 }

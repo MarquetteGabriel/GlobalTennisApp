@@ -36,7 +36,8 @@ import kotlinx.coroutines.withContext
 
 class TournamentPageFragment: Fragment()
 {
-
+    var lastWinnersList = emptyList<LastWinners>() //tournamentViewModel.getLastWinnersOfTournament(args.tournament.id.toString()).value!!
+    var seedsList = emptyList<Seeds>() // tournamentViewModel.getSeedsOfTournament(args.tournament.id.toString()).value!!
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var tournamentViewModel: TournamentViewModel
     private lateinit var binding: FragmentTournamentPageBinding
@@ -50,6 +51,7 @@ class TournamentPageFragment: Fragment()
         val view = binding.root
 
         tournamentViewModel = ViewModelProvider(this)[TournamentViewModel::class.java]
+        getTournamentInformation(args.tournament)
 
         CoroutineScope(Dispatchers.IO).launch {
             val image = BitmapUrl().getBitmapFromUrl(args.tournament.overviewUrl, requireContext())
@@ -59,10 +61,7 @@ class TournamentPageFragment: Fragment()
             }
         }
 
-        getTournamentInformation(args.tournament)
 
-        val lastWinnersList = tournamentViewModel.getLastWinnersOfTournament(args.tournament.id.toString()).value!!
-        val seedsList = tournamentViewModel.getSeedsOfTournament(args.tournament.id.toString()).value!!
 
         val surface = args.tournament.surface + ", " + args.tournament.indoorOutdoor
         binding.tournamentName.text = args.tournament.name
@@ -86,7 +85,7 @@ class TournamentPageFragment: Fragment()
             // val listSeeds = tournamentViewModel.getSeedsOfTournament(args.tournament.id.toString())
             view.findViewById<View>(R.id.overview_tournament).visibility = View.GONE
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
-            view.findViewById<TextView>(R.id.titleRecyclerView).text = "Seeds"
+            view.findViewById<TextView>(R.id.titleRecyclerView).text = R.string.seeds.toString()
             recyclerView.adapter = TournamentPageAdapter(seedsList) {
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
@@ -96,7 +95,7 @@ class TournamentPageFragment: Fragment()
             // val listPastChampions = tournamentViewModel.getLastWinnersOfTournament(args.tournament.id.toString())
             view.findViewById<View>(R.id.overview_tournament).visibility = View.GONE
             view.findViewById<View>(R.id.recyclerViews_tournament).visibility = View.VISIBLE
-            view.findViewById<TextView>(R.id.titleRecyclerView).text = "Past Champions"
+            view.findViewById<TextView>(R.id.titleRecyclerView).text = R.string.pastChampions.toString()
             recyclerView.adapter = TournamentPageAdapter(lastWinnersList) {
                 Navigation.findNavController(view.rootView.findViewById(R.id.navComponentATP)).navigate(TournamentPageFragmentDirections.actionTournamentPageFragmentToPlayerFragment())
             }
@@ -144,24 +143,27 @@ class TournamentPageFragment: Fragment()
                             }
 
                             if(tournament.lastWinners == null) {
-                                tournamentViewModel.addAllLastWinners(tempListLastWinners)
+                                tournamentViewModel.addOrUpdateAllLastWinners(tempListLastWinners)
                                 tournament.lastWinners = tempListLastWinners
                             }
 
                             if(tournament.seeds == null) {
-                                tournamentViewModel.addAllSeeds(tempListSeeds)
+                                tournamentViewModel.addOrUpdateAllSeeds(tempListSeeds)
                                 tournament.seeds = tempListSeeds
                             }
 
                             if(tournament.prizes == null) {
-                                tournamentViewModel.addAllPrize(tempListPrize)
+                                tournamentViewModel.addOrUpdateAllPrize(tempListPrize)
                                 tournament.prizes = tempListPrize
                             }
 
                             if(tournament.points == null) {
-                                tournamentViewModel.addAllPoints(tempListPoints)
-                                tournament.points = tempListPoints
+                                tournamentViewModel.addOrUpdateAllPoints(tempListPoints)
+                                //tournament.points = tempListPoints
                             }
+
+                            lastWinnersList = tempListLastWinners
+                            seedsList = tempListSeeds
 
                             tournamentViewModel.updateTournament(tournament)
                         }

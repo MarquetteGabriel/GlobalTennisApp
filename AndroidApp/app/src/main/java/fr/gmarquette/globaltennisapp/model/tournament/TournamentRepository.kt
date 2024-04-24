@@ -25,4 +25,8 @@ class TournamentRepository(private val tournamentDAO: TournamentDAO)
     fun getTournamentByName(name: String): LiveData<Tournament> {
         return tournamentDAO.getTournamentByName(name)
     }
+
+    fun getTournamentById(id: String): LiveData<Tournament> {
+        return tournamentDAO.getTournamentById(id)
+    }
 }

@@ -55,86 +55,58 @@ class TournamentViewModel(application: Application): AndroidViewModel(applicatio
         }
     }
 
-    fun addLastWinners(lastWinners: LastWinners) {
+    fun addOrUpdateAllLastWinners(lastWinners: List<LastWinners>) {
         viewModelScope.launch(Dispatchers.IO) {
-            lastWinnersRepository.addLastWinner(lastWinners)
+            lastWinners.forEach {
+                val lastWinnerExist = tournamentRepository.getTournamentById(it.tournamentId.toString()).value
+                if(lastWinnerExist == null) {
+                    lastWinnersRepository.addLastWinner(it)
+                } else {
+                    lastWinnersRepository.updateLastWinners(it)
+                }
+            }
         }
     }
 
-    fun addAllLastWinners(lastWinners: List<LastWinners>) {
+    fun addOrUpdateAllSeeds(seeds: List<Seeds>) {
         viewModelScope.launch(Dispatchers.IO) {
-            lastWinnersRepository.addAllLastWinner(lastWinners)
+            seeds.forEach {
+                val seedExist = tournamentRepository.getTournamentById(it.tournamentId.toString()).value
+                if(seedExist == null) {
+                    seedsRepository.addSeeds(it)
+                } else {
+                    seedsRepository.updateSeeds(it)
+                }
+            }
         }
     }
 
-    fun updateLastWinners(lastWinners: LastWinners) {
+    fun addOrUpdateAllPrize(prize: List<Prize>) {
         viewModelScope.launch(Dispatchers.IO) {
-            lastWinnersRepository.updateLastWinners(lastWinners)
+            prize.forEach {
+                val prizeExist = tournamentRepository.getTournamentById(it.tournamentId.toString()).value
+                if(prizeExist == null) {
+                    prizeRepository.addPrize(it)
+                } else {
+                    prizeRepository.updatePrize(it)
+                }
+            }
         }
     }
-
-    fun addSeeds(seeds: Seeds) {
+    fun addOrUpdateAllPoints(points: List<Points>) {
         viewModelScope.launch(Dispatchers.IO) {
-            seedsRepository.addSeeds(seeds)
-        }
-    }
-
-    fun addAllSeeds(seeds: List<Seeds>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            seedsRepository.addAllSeeds(seeds)
-        }
-    }
-
-    fun updateSeeds(seeds: Seeds) {
-        viewModelScope.launch(Dispatchers.IO) {
-            seedsRepository.updateSeeds(seeds)
-        }
-    }
-
-    fun addPrize(prize: Prize) {
-        viewModelScope.launch(Dispatchers.IO) {
-            prizeRepository.addPrize(prize)
-        }
-    }
-
-    fun addAllPrize(prize: List<Prize>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            prizeRepository.addAllPrize(prize)
-        }
-    }
-
-    fun updatePrize(prize: Prize) {
-        viewModelScope.launch(Dispatchers.IO) {
-            prizeRepository.updatePrize(prize)
-        }
-    }
-
-    fun addPoints(points: Points) {
-        viewModelScope.launch(Dispatchers.IO) {
-            pointsRepository.addPoints(points)
-        }
-    }
-
-    fun addAllPoints(points: List<Points>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            pointsRepository.addAllPoints(points)
-        }
-    }
-
-    fun updatePoints(points: Points) {
-        viewModelScope.launch(Dispatchers.IO) {
-            pointsRepository.updatePoints(points)
-        }
-    }
-    
-
-    fun addOrUpdateTournament(tournament: Tournament) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val tournamentExist = getTournamentByName(tournament.name).value
-            if(tournamentExist == null) {
-                addTournament(tournament)
-            } else {
-                updateTournament(tournament)
+            points.forEach {
+                val pointsOfRound = pointsRepository.getPointsOfTournament(it.tournamentId.toString()).value
+                if(pointsOfRound.isNullOrEmpty()) {
+                    pointsRepository.addPoints(it)
+                } else {
+                    val pointExist = pointsOfRound.find { point -> point.round == it.round }
+                    if(pointExist == null) {
+                        pointsRepository.addPoints(it)
+                    } else {
+                        pointsRepository.updatePoints(it)
+                    }
+                }
             }
         }
     }
@@ -145,21 +117,5 @@ class TournamentViewModel(application: Application): AndroidViewModel(applicatio
 
     fun getTournamentByName(name: String): LiveData<Tournament> {
         return tournamentRepository.getTournamentByName(name)
-    }
-    
-    fun getLastWinnersOfTournament(tournamentId: String): LiveData<List<LastWinners>> {
-        return lastWinnersRepository.getLastWinnersOfTournament(tournamentId)
-    }
-
-    fun getSeedsOfTournament(tournamentId: String): LiveData<List<Seeds>> {
-        return seedsRepository.getSeedsOfTournament(tournamentId)
-    }
-
-    fun getPrizeOfTournament(tournamentId: String): LiveData<List<Prize>> {
-        return prizeRepository.getPrizeOfTournament(tournamentId)
-    }
-
-    fun getPointsOfTournament(tournamentId: String): LiveData<List<Points>> {
-        return pointsRepository.getPointsOfTournament(tournamentId)
     }
 }

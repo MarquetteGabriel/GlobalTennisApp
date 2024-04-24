@@ -30,4 +30,7 @@ interface TournamentDAO
     @Query("SELECT * FROM tournaments WHERE name = :name")
     fun getTournamentByName(name: String): LiveData<Tournament>
 
+    @Query("SELECT * FROM tournaments WHERE id = :id")
+    fun getTournamentById(id: String): LiveData<Tournament>
+
 }
