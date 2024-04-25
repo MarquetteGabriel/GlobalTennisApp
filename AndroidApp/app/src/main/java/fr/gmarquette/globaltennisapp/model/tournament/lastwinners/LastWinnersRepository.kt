@@ -8,8 +8,6 @@
 
 package fr.gmarquette.globaltennisapp.model.tournament.lastwinners
 
-import androidx.lifecycle.LiveData
-
 class LastWinnersRepository(private val lastWinnersDAO: LastWinnersDAO)
 {
     suspend fun addLastWinner(lastWinners: LastWinners) {
@@ -24,7 +22,7 @@ class LastWinnersRepository(private val lastWinnersDAO: LastWinnersDAO)
         lastWinnersDAO.updateLastWinners(lastWinners)
     }
 
-    fun getLastWinnersOfTournament(tournamentId: String): LiveData<List<LastWinners>> {
+    suspend fun getLastWinnersOfTournament(tournamentId: String): List<LastWinners> {
         return lastWinnersDAO.getLastWinnersOfTournament(tournamentId)
     }
 }

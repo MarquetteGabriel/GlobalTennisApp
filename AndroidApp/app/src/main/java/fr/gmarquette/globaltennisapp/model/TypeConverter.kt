@@ -13,9 +13,20 @@ import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import fr.gmarquette.globaltennisapp.model.tournament.Tournament
 import java.io.ByteArrayOutputStream
+import java.util.Date
 
 class TypeConverter
 {
+
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return if (value == null) null else Date(value)
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time
+    }
 
     @TypeConverter
     fun fromBitmap(bitmap: Bitmap): ByteArray {

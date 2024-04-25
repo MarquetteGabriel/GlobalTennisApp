@@ -21,7 +21,9 @@ import fr.gmarquette.globaltennisapp.model.tournament.seeds.Seeds
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Locale
 
 @Parcelize
@@ -36,6 +38,8 @@ data class Tournament (
     var overviewUrl: String,
     var website: String,
     var tournamentMonth: Int?,
+    var startDate: Date?,
+    var endDate: Date?,
     @Ignore @IgnoredOnParcel var date: TournamentDate? = null,
     var surface: String?,
     var indoorOutdoor: String?,
@@ -71,13 +75,15 @@ data class Tournament (
         null, // prizes
         null // points
     ) {
-        this.date = convertFormattedDate(calendar.FormattedDate)
-        this.tournamentMonth = this.date?.let {
-            setTournamentMonth(
-                it.startMonth.lowercase().replaceFirstChar(Char::uppercase),
-                it.endMonth.lowercase().replaceFirstChar(Char::uppercase)
-            )
-        }
+        // this.date = convertFormattedDate(calendar.FormattedDate)
+
+        val date = convertFormattedDate(calendar.FormattedDate)
+        this.startDate = date.first
+        this.endDate = date.second
+
+        val startMonth = date.first.toString().lowercase().replaceFirstChar(Char::uppercase)
+        val endMonth = date.second.toString().lowercase().replaceFirstChar(Char::uppercase)
+        this.tournamentMonth = setTournamentMonth(startMonth, endMonth)
     }
 
 
@@ -121,7 +127,7 @@ data class Tournament (
         else 12
     }
 
-    fun convertFormattedDate(date: String): TournamentDate
+    fun convertFormattedDate(date: String): Pair<Date, Date>
     {
         val dateFormatter = DateTimeFormatter.ofPattern("d MMMM, yyyy", Locale.ENGLISH)
         val dates = date.split(" - ")
@@ -134,9 +140,13 @@ data class Tournament (
             LocalDate.parse(dates[0], dateFormatter)
         }
 
-        return TournamentDate(
-            startDate.dayOfMonth.toString(), startDate.month.toString(), startDate.year.toString(),
-            endDate.dayOfMonth.toString(), endDate.month.toString(), endDate.year.toString())
+        val startDateTime = startDate.atStartOfDay()
+        val endDateTime = endDate.atStartOfDay()
+        val startInstant = startDateTime.toInstant(ZoneOffset.UTC)
+        val endInstant = endDateTime.toInstant(ZoneOffset.UTC)
+        val startDateUtil = Date.from(startInstant)
+        val endDateUtil = Date.from(endInstant)
+        return Pair(startDateUtil, endDateUtil)
     }
 
     data class TournamentDate(val startDay: String, val startMonth: String, val startYear: String, val endDay: String, val endMonth: String, val endYear: String)

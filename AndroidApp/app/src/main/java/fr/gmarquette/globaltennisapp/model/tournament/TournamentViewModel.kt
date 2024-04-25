@@ -11,6 +11,7 @@ package fr.gmarquette.globaltennisapp.model.tournament
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import fr.gmarquette.globaltennisapp.model.ATPDatabase
 import fr.gmarquette.globaltennisapp.model.tournament.lastwinners.LastWinners
@@ -117,5 +118,13 @@ class TournamentViewModel(application: Application): AndroidViewModel(applicatio
 
     fun getTournamentByName(name: String): LiveData<Tournament> {
         return tournamentRepository.getTournamentByName(name)
+    }
+    fun getLastWinnersOfTournament(tournamentId: Int): List<LastWinners>? {
+        val liveData = MutableLiveData<List<LastWinners>>()
+        viewModelScope.launch {
+            val winners = lastWinnersRepository.getLastWinnersOfTournament(tournamentId.toString())
+            liveData.postValue(winners)
+        }
+        return liveData.value
     }
 }

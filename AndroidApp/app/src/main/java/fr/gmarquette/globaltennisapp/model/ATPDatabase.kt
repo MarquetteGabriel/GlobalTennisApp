@@ -12,6 +12,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import fr.gmarquette.globaltennisapp.model.matches.Match
 import fr.gmarquette.globaltennisapp.model.matches.MatchDAO
 import fr.gmarquette.globaltennisapp.model.matches.scores.Score
@@ -37,6 +38,7 @@ import fr.gmarquette.globaltennisapp.model.tournament.seeds.SeedsDAO
     entities = [Tournament::class, Seeds::class, Prize::class, Points::class, LastWinners::class,
         Player::class, Injuries::class, Rank::class, Match::class, Score::class],
     version = 1, exportSchema = true)
+@TypeConverters(TypeConverter::class)
 abstract class ATPDatabase : RoomDatabase() {
 
     abstract fun tournamentDAO(): TournamentDAO

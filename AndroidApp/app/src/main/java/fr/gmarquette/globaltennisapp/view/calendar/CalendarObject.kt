@@ -9,7 +9,8 @@
 package fr.gmarquette.globaltennisapp.view.calendar
 
 import fr.gmarquette.globaltennisapp.model.tournament.TournamentViewModel
-import fr.gmarquette.globaltennisapp.model.tournament.lastwinners.LastWinners
+import java.util.Calendar
+import java.util.Date
 
 object CalendarObject {
 
@@ -19,26 +20,22 @@ object CalendarObject {
         fun getItems(tournamentViewModel: TournamentViewModel): List<Any> {
 
                 val itemList = mutableListOf<Any>()
-                var tournamentList = tournamentViewModel.getTournaments().value!!
+                val tournamentList = tournamentViewModel.getTournaments().value!!
+                var currentMonth: String? = null
 
-                tournamentList = tournamentList.sortedWith(
-                        compareBy({ it.tournamentMonth },
-                                { it.date?.startDay?.toInt() })
-                )
-                for (tournament in tournamentList)
-                {
-                        val headerExist = itemList.any { it is CalendarItems.Header && reverseMonth(it.month) == tournament.tournamentMonth }
-
-                        if(!headerExist)
-                        {
-                                itemList.add(CalendarItems.Header(getMonth(tournament.tournamentMonth!!)))
+                for (tournament in tournamentList.sortedBy { it.startDate }) {
+                        val month = getMonth(tournament.startDate)
+                        if (currentMonth != month) {
+                                currentMonth = month
+                                itemList.add(CalendarItems.Header(month))
                         }
 
-                        val pastChamps = if(!tournament.lastWinners.isNullOrEmpty()) {
-                                "🏆 " + (tournament.lastWinners as List<LastWinners>).first().year.toString() + " - " + (tournament.lastWinners as List<LastWinners>).first().name
-                        } else {
-                                ""
-                        }
+                        val pastChamps = tournamentViewModel.getLastWinnersOfTournament(tournament.id)
+                                ?.takeIf { it.isNotEmpty() }
+                                ?.map { "🏆 ${it.year} - ${it.name}" }
+                                ?.first()
+                                ?: ""
+
                         itemList.add(
                                 CalendarItems.Item(
                                         tournament.name,
@@ -53,38 +50,23 @@ object CalendarObject {
                 return itemList
         }
 
-        private fun getMonth(month: Int): String {
-                return when (month) {
-                        0 -> "December"
-                        1 -> "January"
-                        2 -> "February"
-                        3 -> "March"
-                        4 -> "April"
-                        5 -> "May"
-                        6 -> "June"
-                        7 -> "July"
-                        8 -> "August"
-                        9 -> "September"
-                        10 -> "October"
-                        11 -> "November"
-                        else -> "December"
-                }
-        }
-        private fun reverseMonth(month: String): Int {
-                return when (month) {
-                        "December" -> 0
-                        "January" -> 1
-                        "February" -> 2
-                        "March" -> 3
-                        "April" -> 4
-                        "May" -> 5
-                        "June" -> 6
-                        "July" -> 7
-                        "August" -> 8
-                        "September" -> 9
-                        "October" -> 10
-                        "November" -> 11
-                        else -> 0
+        private fun getMonth(date: Date?): String {
+                val calendar = Calendar.getInstance()
+                calendar.time = date ?: Date()
+                return when (calendar.get(Calendar.MONTH)) {
+                        0 -> "January"
+                        1 -> "February"
+                        2 -> "March"
+                        3 -> "April"
+                        4 -> "May"
+                        5 -> "June"
+                        6 -> "July"
+                        7 -> "August"
+                        8 -> "September"
+                        9 -> "October"
+                        10 -> "November"
+                        11 -> "December"
+                        else -> "January"
                 }
         }
 }

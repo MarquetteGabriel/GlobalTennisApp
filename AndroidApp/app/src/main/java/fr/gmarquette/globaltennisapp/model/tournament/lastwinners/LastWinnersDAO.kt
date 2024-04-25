@@ -8,7 +8,6 @@
 
 package fr.gmarquette.globaltennisapp.model.tournament.lastwinners
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -28,5 +27,5 @@ interface LastWinnersDAO
     suspend fun updateLastWinners(lastWinners: LastWinners)
 
     @Query("SELECT * FROM last_winners WHERE tournamentId = :tournamentId ORDER BY year DESC")
-    fun getLastWinnersOfTournament(tournamentId: String): LiveData<List<LastWinners>>
+    suspend fun getLastWinnersOfTournament(tournamentId: String): List<LastWinners>
 }
